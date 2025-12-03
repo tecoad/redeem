@@ -10,33 +10,84 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RedeemIndexRouteImport } from './routes/redeem/index'
+import { Route as RedeemTopupRouteImport } from './routes/redeem/topup'
+import { Route as RedeemResultRouteImport } from './routes/redeem/result'
+import { Route as RedeemInitiateRouteImport } from './routes/redeem/initiate'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedeemIndexRoute = RedeemIndexRouteImport.update({
+  id: '/redeem/',
+  path: '/redeem/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedeemTopupRoute = RedeemTopupRouteImport.update({
+  id: '/redeem/topup',
+  path: '/redeem/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedeemResultRoute = RedeemResultRouteImport.update({
+  id: '/redeem/result',
+  path: '/redeem/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedeemInitiateRoute = RedeemInitiateRouteImport.update({
+  id: '/redeem/initiate',
+  path: '/redeem/initiate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/redeem/initiate': typeof RedeemInitiateRoute
+  '/redeem/result': typeof RedeemResultRoute
+  '/redeem/topup': typeof RedeemTopupRoute
+  '/redeem': typeof RedeemIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/redeem/initiate': typeof RedeemInitiateRoute
+  '/redeem/result': typeof RedeemResultRoute
+  '/redeem/topup': typeof RedeemTopupRoute
+  '/redeem': typeof RedeemIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/redeem/initiate': typeof RedeemInitiateRoute
+  '/redeem/result': typeof RedeemResultRoute
+  '/redeem/topup': typeof RedeemTopupRoute
+  '/redeem/': typeof RedeemIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/redeem/initiate'
+    | '/redeem/result'
+    | '/redeem/topup'
+    | '/redeem'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/redeem/initiate' | '/redeem/result' | '/redeem/topup' | '/redeem'
+  id:
+    | '__root__'
+    | '/'
+    | '/redeem/initiate'
+    | '/redeem/result'
+    | '/redeem/topup'
+    | '/redeem/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RedeemInitiateRoute: typeof RedeemInitiateRoute
+  RedeemResultRoute: typeof RedeemResultRoute
+  RedeemTopupRoute: typeof RedeemTopupRoute
+  RedeemIndexRoute: typeof RedeemIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +99,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/redeem/': {
+      id: '/redeem/'
+      path: '/redeem'
+      fullPath: '/redeem'
+      preLoaderRoute: typeof RedeemIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/redeem/topup': {
+      id: '/redeem/topup'
+      path: '/redeem/topup'
+      fullPath: '/redeem/topup'
+      preLoaderRoute: typeof RedeemTopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/redeem/result': {
+      id: '/redeem/result'
+      path: '/redeem/result'
+      fullPath: '/redeem/result'
+      preLoaderRoute: typeof RedeemResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/redeem/initiate': {
+      id: '/redeem/initiate'
+      path: '/redeem/initiate'
+      fullPath: '/redeem/initiate'
+      preLoaderRoute: typeof RedeemInitiateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RedeemInitiateRoute: RedeemInitiateRoute,
+  RedeemResultRoute: RedeemResultRoute,
+  RedeemTopupRoute: RedeemTopupRoute,
+  RedeemIndexRoute: RedeemIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

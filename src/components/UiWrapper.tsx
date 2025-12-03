@@ -48,7 +48,7 @@ function IphoneUI({ children }: { children: React.ReactNode }) {
 				}}
 				className="relative origin-center flex shrink-0 flex-col  rounded-[76px] overflow-hidden bg-white shadow-2xl"
 			>
-				<div className="absolute inset-0  pointer-events-none bg-no-repeat bg-center bg-cover bg-[url(iphone.svg)] z-10" />
+				<div className="absolute inset-0  pointer-events-none bg-no-repeat bg-center bg-cover bg-[url(/iphone.svg)] z-10" />
 
 				<div className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)] ">
 					{children}
