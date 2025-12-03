@@ -5,24 +5,28 @@ import type * as React from "react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-lg font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+	"inline-flex items-center justify-center gap-2 whitespace-nowrap  text-lg font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-full",
 	{
 		variants: {
 			variant: {
-				default: "bg-primary text-primary-foreground hover:bg-primary/90",
-				outline:
-					"border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-
-				link: "text-primary underline-offset-4 hover:underline",
+				filled: "bg-primary text-primary-foreground hover:bg-primary/90",
+				tinted: "bg-primary/10 text-primary hover:bg-primary/20",
+				neutral: "bg-muted text-muted-foreground hover:bg-muted/80",
+				ghost: "bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
 			},
 			size: {
-				default: "h-14 rounded-2xl px-6 has-[>svg]:px-4",
-				icon: "size-10",
+				small: "h-[28px] px-[12px] py-[4px] has-[>svg]:px-[4px] text-[15px]",
+				medium: "h-[34px] px-[14px] py-[7px] has-[>svg]:px-[7px] text-[15px]",
+				large: "h-[50px] px-[20px] py-[14px] has-[>svg]:px-[14px] text-[17px]",
+			},
+			icon: {
+				true: "aspect-square w-auto",
 			},
 		},
 		defaultVariants: {
-			variant: "default",
-			size: "default",
+			variant: "filled",
+			size: "large",
+			icon: false,
 		},
 	}
 )

@@ -7,6 +7,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
+	html {
+		font-size: 17px;
+	}
+
 	* {
 		@apply border-border outline-ring/50;
 	}
@@ -24,11 +28,4 @@
 	--aspect-golden: 1.618;
 	--aspect-card: 1.5925;
 	--aspect-golden-portrait: 0.618;
-}
-
-@theme inline {
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
-	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
 }

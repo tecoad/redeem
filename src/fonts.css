@@ -1,10 +1,10 @@
 @theme inline {
-	--font-sans: "InterVariable", system-ui;
-	--font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-	--font-display: "Haffer", system-ui;
+	--font-sans: "SF Pro Display", system-ui;
+	/* --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11"; */
+	/* --font-display: "Haffer", system-ui; */
 }
 
-@font-face {
+/* @font-face {
 	font-family: "InterVariable";
 	src:
 		url("/fonts/InterVariable.woff2") format("woff2-variations"),
@@ -12,34 +12,46 @@
 	font-display: block;
 	font-style: normal;
 	font-weight: 100 900;
-}
+} */
 
 @font-face {
-	font-family: "Haffer";
-	src:
-		url("/fonts/Haffer-Regular.woff2") format("woff2"),
-		url("/fonts/Haffer-Regular.woff") format("woff");
+	font-family: "SF Pro Display";
+	font-style: normal;
 	font-weight: 400;
-	font-style: normal;
-	font-display: block;
+	src:
+		local("SF Pro Display"),
+		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYREGULAR.woff") format("woff");
 }
 
 @font-face {
-	font-family: "Haffer";
-	src:
-		url("/fonts/Haffer-Medium.woff2") format("woff2"),
-		url("/fonts/Haffer-Medium.woff") format("woff");
+	font-family: "SF Pro Display";
+	font-style: normal;
 	font-weight: 500;
-	font-style: normal;
-	font-display: block;
-}
-
-@font-face {
-	font-family: "Haffer";
 	src:
-		url("/fonts/Haffer-SemiBold.woff2") format("woff2"),
-		url("/fonts/Haffer-SemiBold.woff") format("woff");
+		local("SF Pro Display"),
+		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYMEDIUM.woff") format("woff");
+}
+@font-face {
+	font-family: "SF Pro Display";
+	font-style: italic;
 	font-weight: 600;
+	src:
+		local("SF Pro Display"),
+		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYSEMIBOLDITALIC.woff") format("woff");
+}
+@font-face {
+	font-family: "SF Pro Display";
 	font-style: normal;
-	font-display: block;
+	font-weight: 700;
+	src:
+		local("SF Pro Display"),
+		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYBOLD.woff") format("woff");
+}
+@font-face {
+	font-family: "SF Pro Display";
+	font-style: italic;
+	font-weight: 800;
+	src:
+		local("SF Pro Display"),
+		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYHEAVYITALIC.woff") format("woff");
 }
