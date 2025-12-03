@@ -1,11 +1,11 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-import "@/globals.css";
-import DeviceLayout from "@/components/DeviceLayout";
+import { createRootRoute, Outlet } from "@tanstack/react-router"
+import "@/globals.css"
+import UiWrapper from "@/components/UiWrapper"
 
 export const Route = createRootRoute({
 	component: () => (
-		<DeviceLayout>
+		<UiWrapper>
 			<Outlet />
-		</DeviceLayout>
+		</UiWrapper>
 	),
-});
+})

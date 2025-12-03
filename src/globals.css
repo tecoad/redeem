@@ -1,18 +1,33 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./theme.css";
 @plugin "@toolwind/corner-shape";
 
+@custom-variant dark (&:is(.dark *));
+
 @layer base {
-	/* * {
+	* {
 		@apply border-border outline-ring/50;
-	} */
+	}
 	body {
-		@apply bg-white text-black antialiased;
+		@apply bg-background text-foreground;
+	}
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
 	}
 }
 
 @theme {
 	--aspect-iphone-16: 0.461;
 	--aspect-golden: 1.618;
+	--aspect-card: 1.5925;
 	--aspect-golden-portrait: 0.618;
+}
+
+@theme inline {
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
 }
