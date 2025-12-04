@@ -1,11 +1,11 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 import "@/globals.css"
-import UiWrapper from "@/components/UiWrapper"
+import Viewport from "@/components/Viewport"
 
 export const Route = createRootRoute({
 	component: () => (
-		<UiWrapper>
+		<Viewport>
 			<Outlet />
-		</UiWrapper>
+		</Viewport>
 	),
 })

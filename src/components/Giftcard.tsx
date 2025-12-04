@@ -1,9 +1,5 @@
 function Giftcard() {
-	return (
-		<div>
-			<h1>Giftcard</h1>
-		</div>
-	)
+	return <div className="w-full aspect-card rounded-2xl bg-blue-500 shadow-2xl"></div>
 }
 
 export default Giftcard

@@ -81,7 +81,7 @@ function MobileWrapper({ children }: { children: React.ReactNode }) {
 	)
 }
 
-function UiWrapper({ children }: { children: React.ReactNode }) {
+function Viewport({ children }: { children: React.ReactNode }) {
 	const { isBelowSm: isMobile } = useBreakpoint("sm")
 	const Wrapper = isMobile ? MobileWrapper : DesktopWrapper
 
@@ -91,4 +91,4 @@ function UiWrapper({ children }: { children: React.ReactNode }) {
 		</div>
 	)
 }
-export default UiWrapper
+export default Viewport

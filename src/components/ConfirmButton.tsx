@@ -1,15 +1,29 @@
 import { animate, motion, useMotionTemplate, useMotionValue } from "motion/react"
+import { cn } from "@/lib/utils"
 import { Button } from "./Button"
 
 const INITIAL = 100
 
-export function ConfirmButton({ children = "Hold to confirm" }) {
+export function ConfirmButton({
+	children = "Hold to confirm",
+	className,
+	onSuccessConfirm,
+	duration = 1,
+}: {
+	children?: string
+	className?: string
+	onSuccessConfirm?: () => void
+	duration?: number
+}) {
 	const clip = useMotionValue(INITIAL)
 
 	function startConfirm() {
 		animate(clip, 0, {
 			ease: "linear",
-			duration: 1,
+			duration,
+			onComplete: () => {
+				onSuccessConfirm?.()
+			},
 		})
 	}
 
@@ -26,7 +40,10 @@ export function ConfirmButton({ children = "Hold to confirm" }) {
 	return (
 		<Button
 			variant="filled"
-			className="overflow-hidden whitespace-nowrap relative  hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 bg-success hover:bg-muted-foreground"
+			className={cn(
+				"overflow-hidden whitespace-nowrap relative  hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 bg-success hover:bg-muted-foreground",
+				className
+			)}
 			onPointerDown={startConfirm}
 			onPointerUp={stopConfirm}
 			onMouseLeave={() => {

@@ -9,10 +9,11 @@ export interface DrawerProps extends Omit<DialogProps, "children"> {
 	closable?: boolean
 	children?: React.ReactNode
 	activeElementKey?: string
+	className?: string
 }
 
 function Root({ children, closable = true, activeElementKey, ...props }: DrawerProps) {
-	const { fadeFromIndex, snapPoints, ...rest } = props
+	const { fadeFromIndex, snapPoints, className, ...rest } = props
 	const [container, setContainer] = useState<HTMLElement | null>(null)
 	const [elementRef, bounds] = useUnscaledMeasure()
 	const previousHeightRef = useRef<number>(0)
@@ -44,7 +45,12 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 	return (
 		<VaulDrawer.Root container={container} {...rest}>
 			<VaulDrawer.Overlay className="absolute inset-0 bg-black/40" />
-			<VaulDrawer.Content className="flex px-3 flex-col overflow-hidden  absolute bottom-3 left-0 right-0">
+			<VaulDrawer.Content
+				className={cn(
+					"flex px-3 flex-col   absolute bottom-3 overflow-hidden left-0 right-0 [--padding-x:30px]",
+					className
+				)}
+			>
 				<motion.div
 					animate={{
 						height: bounds.height,
@@ -53,7 +59,7 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 							ease: [0.25, 1, 0.5, 1],
 						},
 					}}
-					className="w-full  corner-squircle bg-white  rounded-4xl"
+					className="w-full  corner-squircle bg-white  rounded-[40px] overflow-hidden"
 				>
 					{closable && (
 						<VaulDrawer.Close asChild>
@@ -67,7 +73,7 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 						</VaulDrawer.Close>
 					)}
 
-					<div className="p-3 " ref={elementRef}>
+					<div className="flex flex-col" ref={elementRef}>
 						<AnimatePresence initial={false} mode="popLayout" custom={activeElementKey}>
 							<motion.div
 								initial={{ opacity: 0, scale: 0.96 }}
@@ -89,41 +95,67 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 	)
 }
 
-function Header({
-	icon,
-	title,
-	description,
+function DrawerHeader({ className, children }: { className?: string; children: React.ReactNode }) {
+	return <div className={cn("px-(--padding-x)", className)}>{children}</div>
+}
+
+function DrawerFullbleed({
+	children,
 	className,
 }: {
-	title: string
-	description?: string
+	children: React.ReactNode
+	className?: string
+}) {
+	return <div className={cn("-mx-(--padding-x)", className)}>{children}</div>
+}
+
+function DrawerTitle({
+	children,
+	icon,
+	className,
+}: {
+	children: React.ReactNode
 	icon?: React.ReactNode
 	className?: string
 }) {
 	return (
-		<VaulDrawer.Title className={cn("mt-[21px] px-2", className)}>
+		<div className={cn("flex flex-col gap-4 mt-10 text-title2 font-semibold", className)}>
 			{icon}
-			<h2 className="mt-2.5 text-[22px] font-semibold text-[#222222] md:font-medium">{title}</h2>
-
-			<p className="mt-3 text-[17px] font-medium leading-[24px] text-[#999999] md:font-normal">
-				{description}
-			</p>
-		</VaulDrawer.Title>
+			<VaulDrawer.Title>{children}</VaulDrawer.Title>
+		</div>
 	)
 }
 
-function Content({ children, className }: { children: React.ReactNode; className?: string }) {
-	return <div className={cn("px-2", className)}>{children}</div>
+function DrawerDescription({
+	children,
+	className,
+}: {
+	children: React.ReactNode
+	className?: string
+}) {
+	return <p className={cn("mt-3 text-body text-muted-foreground", className)}>{children}</p>
 }
 
-function Footer({ children }: { children: React.ReactNode }) {
-	return <div className="flex gap-4">{children}</div>
+function DrawerContent({ children, className }: { children: React.ReactNode; className?: string }) {
+	return <div className={cn("px-(--padding-x) pt-(--padding-x)", className)}>{children}</div>
+}
+
+function DrawerFooter({ children, className }: { children: React.ReactNode; className?: string }) {
+	return (
+		<div className={cn("flex shrink-0 gap-4 py-(--padding-x) mx-(--padding-x)", className)}>
+			{children}
+		</div>
+	)
 }
 
 const Drawer = Object.assign(Root, {
-	Header,
-	Content,
-	Footer,
+	Header: Object.assign(DrawerHeader, {
+		Fullbleed: DrawerFullbleed,
+		Title: DrawerTitle,
+		Description: DrawerDescription,
+	}),
+	Content: DrawerContent,
+	Footer: DrawerFooter,
 	Close: VaulDrawer.Close,
 })
 

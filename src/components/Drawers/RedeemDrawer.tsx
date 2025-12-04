@@ -6,10 +6,10 @@ import {
 	IconShieldCheckFillDuo18,
 } from "nucleo-ui-fill-duo-18"
 import { useMemo, useState } from "react"
-import { Button } from "./Button"
-import { ConfirmButton } from "./ConfirmButton"
-import Drawer, { type DrawerProps } from "./Drawer"
-import KeyValueList from "./KeyValueList"
+import { Button } from "../Button"
+import { ConfirmButton } from "../ConfirmButton"
+import Drawer, { type DrawerProps } from "../Drawer"
+import KeyValueList from "../KeyValueList"
 
 type View = "confirmation" | "topup"
 
@@ -35,27 +35,28 @@ function RedeemDrawer(props: DrawerProps) {
 function ConfirmationView({ setView }: { setView: (view: View) => void }) {
 	return (
 		<>
-			<Drawer.Header
-				icon={<IconCircleDollarOutFillDuo18 className="size-10 text-success" />}
-				title="Redeeming"
-			/>
-			<Drawer.Content className=" px-6 pb-7 pt-3">
+			<Drawer.Header>
+				<Drawer.Header.Title
+					icon={<IconCircleDollarOutFillDuo18 className="size-10 text-success" />}
+				>
+					Redeeming
+				</Drawer.Header.Title>
+			</Drawer.Header>
+			<Drawer.Content>
 				<KeyValueList
 					items={[
 						{ key: "Wine Store Ltda", value: "R$80.00" },
 						{ key: "Balance", value: "R$100.00" },
-					]}
-				/>
-				<KeyValueList
-					className="border-t mt-1.5 pt-1.5"
-					items={[
-						{ key: "Remaining Balance", value: <span className="text-success">R$20.00</span> },
+						{
+							key: "Balance after redemption",
+							value: <span className="text-success">R$20.00</span>,
+							dividerBefore: true,
+						},
 					]}
 				/>
 			</Drawer.Content>
 			<Drawer.Footer>
 				<ConfirmButton>Hold to redeem</ConfirmButton>
-				{/* <Button onClick={() => setView("topup")}>Hold to redeem</Button> */}
 			</Drawer.Footer>
 		</>
 	)
@@ -64,12 +65,17 @@ function ConfirmationView({ setView }: { setView: (view: View) => void }) {
 function TopupView({ setView }: { setView: (view: View) => void }) {
 	return (
 		<>
-			<Drawer.Header
-				icon={<IconCircleDollarInFillDuo18 className="size-10 text-destructive" />}
-				title="Top up required"
-				description="The amount you are trying to redeem is greater than the amount you have available."
-			/>
-			<Drawer.Content className=" px-6 py-7">
+			<Drawer.Header>
+				<Drawer.Header.Title
+					icon={<IconCircleDollarInFillDuo18 className="size-10 text-destructive" />}
+				>
+					Top up required
+				</Drawer.Header.Title>
+				<Drawer.Header.Description>
+					The amount you are trying to redeem is greater than the amount you have available.
+				</Drawer.Header.Description>
+			</Drawer.Header>
+			<Drawer.Content>
 				<KeyValueList
 					items={[
 						{ key: "Wine Store Ltda", value: "R$120.00" },
