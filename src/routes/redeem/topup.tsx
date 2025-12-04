@@ -14,11 +14,10 @@ function RouteComponent() {
 	return (
 		<Layout>
 			<Stepper>
-				<Stepper.Step>
-					<span>Step 1</span>
-				</Stepper.Step>
-				<Stepper.Step>
-					<span>Step 2</span>
+				<Stepper.Step to="/redeem/initiate">Step 1</Stepper.Step>
+				<Stepper.Step to="/redeem/topup">Step 2</Stepper.Step>
+				<Stepper.Step to="/redeem/result" disabled>
+					Step 3
 				</Stepper.Step>
 			</Stepper>
 			<Heading>

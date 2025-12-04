@@ -1,12 +1,25 @@
 import { cn } from "@/lib/utils"
 
-function Root({ children, className }: { children: React.ReactNode; className?: string }) {
+function Root<T extends React.ElementType = "div">({
+	children,
+	className,
+	as,
+	...props
+}: { children: React.ReactNode; className?: string; as?: T } & Omit<
+	React.ComponentPropsWithoutRef<T>,
+	"children" | "className" | "as"
+>) {
+	const Component = as || "div"
 	return (
-		<div
-			className={cn("p-4 flex gap-4 w-full h-full items-start justify-between flex-col", className)}
+		<Component
+			className={cn(
+				"p-4 flex gap-4 **:border **:border-[green] w-full h-full items-start justify-between flex-col",
+				className
+			)}
+			{...props}
 		>
 			{children}
-		</div>
+		</Component>
 	)
 }
 
@@ -18,11 +31,24 @@ function Content({ children, className }: { children: React.ReactNode; className
 	return <div className={cn(!className ? "contents" : className)}>{children}</div>
 }
 
-function Footer({ children, className }: { children: React.ReactNode; className?: string }) {
+function Footer<T extends React.ElementType = "div">({
+	children,
+	className,
+	as,
+	...props
+}: {
+	children: React.ReactNode
+	className?: string
+	as?: T
+} & Omit<React.ComponentPropsWithoutRef<T>, "children" | "className" | "as">) {
+	const Component = as || "div"
 	return (
-		<div className={cn("self-stretch flex items-center justify-center flex-col gap-2", className)}>
+		<Component
+			className={cn("self-stretch flex items-center justify-center flex-col gap-2", className)}
+			{...props}
+		>
 			{children}
-		</div>
+		</Component>
 	)
 }
 

@@ -28,11 +28,12 @@ function RouteComponent() {
 		<>
 			<Layout>
 				<Stepper>
-					<Stepper.Step>
-						<span>Step 1</span>
+					<Stepper.Step to="/redeem/initiate">Step 1</Stepper.Step>
+					<Stepper.Step to="/redeem/topup" disabled>
+						Step 2
 					</Stepper.Step>
-					<Stepper.Step>
-						<span>Step 2</span>
+					<Stepper.Step to="/redeem/result" disabled>
+						Step 3
 					</Stepper.Step>
 				</Stepper>
 				<Heading>
@@ -41,7 +42,9 @@ function RouteComponent() {
 						Enter the PIX code provided by the merchant at the payment.
 					</Heading.Subtitle>
 				</Heading>
+
 				<PixTopUpReveal />
+
 				<Layout.Footer>
 					<Button onClick={handleOpenDrawer}>Process</Button>
 				</Layout.Footer>
