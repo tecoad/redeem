@@ -14,7 +14,7 @@ function RouteComponent() {
 	const router = useRouter()
 	const [drawerOpen, setDrawerOpen] = useState(false)
 
-	const variants = {
+	const _variants = {
 		initial: {},
 		final: {},
 	}
@@ -22,35 +22,14 @@ function RouteComponent() {
 	return (
 		<>
 			<Layout
-				as={motion.div}
+				// as={motion.div}
 				className="gap-0"
-				variants={variants}
-				initial="initial"
-				animate="final"
+				// variants={variants}
+				// initial="initial"
+				// animate="final"
 			>
 				<div className="w-full h-full relative">
-					<motion.div
-						className="absolute w-full"
-						variants={{
-							initial: {
-								top: "50%",
-								translateY: "-50%",
-							},
-							final: {
-								top: "0%",
-								translateY: "0%",
-							},
-						}}
-						transition={{
-							duration: 0.15,
-							type: "spring",
-							stiffness: 300,
-							damping: 20,
-							delay: 2,
-						}}
-					>
-						<Giftcard as={motion.div} layoutId="giftcard" />
-					</motion.div>
+					<Giftcard view="detailed" />
 				</div>
 
 				<Layout.Footer

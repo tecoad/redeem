@@ -10,7 +10,7 @@ const BASE_HEIGHT = 852
 
 function DesktopWrapper({ children }: { children: React.ReactNode }) {
 	const containerRef = useRef<HTMLDivElement>(null)
-	const [scale, setScale] = useState(1)
+	const [scale, setScale] = useState<number | null>(null)
 	const router = useRouter()
 
 	useEffect(() => {
@@ -44,31 +44,35 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 			ref={containerRef}
 			className={cn("flex  py-[4dvh] px-[4dvw] w-full h-full items-center justify-center")}
 		>
-			<div
-				style={{
-					width: BASE_WIDTH,
-					height: BASE_HEIGHT,
-					transform: `scale(${scale})`,
-				}}
-				className="relative origin-center flex shrink-0 flex-col  rounded-[76px] overflow-hidden bg-white shadow-2xl cursor-[url('/cursor.svg'),pointer]"
-			>
-				{/* Back button */}
-				<button
-					type="button"
-					onClick={() => router.history.back()}
-					className="absolute  left-[36px] bottom-[42px] size-[46px] rounded-full z-15"
-				/>
-				<div className="absolute inset-0  pointer-events-none bg-no-repeat bg-center bg-cover bg-[url(/iphone.svg)] z-10" />
+			{scale !== null && (
+				<div
+					style={{
+						width: BASE_WIDTH,
+						height: BASE_HEIGHT,
+						transform: `scale(${scale})`,
+					}}
+					className={cn(
+						"relative origin-center flex shrink-0 flex-col  rounded-[76px] overflow-hidden bg-white shadow-2xl cursor-[url('/cursor.svg'),pointer]"
+					)}
+				>
+					{/* Back button */}
+					<button
+						type="button"
+						onClick={() => router.history.back()}
+						className="absolute  left-[36px] bottom-[42px] size-[46px] rounded-full z-15"
+					/>
+					<div className="absolute inset-0  pointer-events-none bg-no-repeat bg-center bg-cover bg-[url(/iphone.svg)] z-10" />
 
-				<ScaleProvider scale={scale}>
-					<div
-						className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]  overflow-hidden"
-						id="safe_area"
-					>
-						{children}
-					</div>
-				</ScaleProvider>
-			</div>
+					<ScaleProvider scale={scale}>
+						<div
+							className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]  overflow-hidden"
+							id="safe_area"
+						>
+							{children}
+						</div>
+					</ScaleProvider>
+				</div>
+			)}
 		</div>
 	)
 }

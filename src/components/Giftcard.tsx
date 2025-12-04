@@ -8,36 +8,29 @@ type View = "default" | "detailed" | "blank" | "flipped"
 // Between default and detailed will ocurr an animation like revealing some data
 const views: View[] = ["default", "detailed", "blank", "flipped"]
 
-function Giftcard<T extends React.ElementType = "div">({
-	className,
-	as,
-	...props
-}: { className?: string; as?: T; view?: View } & Omit<
-	React.ComponentPropsWithoutRef<T>,
-	"className" | "as" | "view"
->) {
-	const [view, setView] = useState<View>(props.view || "default")
+function Giftcard({ view = "default" }: { view: View }) {
+	const [internalView, setInternalView] = useState<View>(view)
 
-	const currentIndex = views.indexOf(view)
+	const currentIndex = views.indexOf(internalView)
 	const nextIndex = (currentIndex + 1) % views.length
 	const nextView = views[nextIndex]
 
 	const cycleView = () => {
-		setView(nextView)
+		setInternalView(nextView)
 	}
 
 	const Component = useMemo(() => {
-		switch (view) {
-			case "default":
-				return <DefaultView />
+		switch (internalView) {
 			case "blank":
 				return <BlankView />
 			case "detailed":
 				return <DetailedView />
 			case "flipped":
 				return <FlippedView />
+			default:
+				return <DefaultView />
 		}
-	}, [view])
+	}, [internalView])
 
 	return (
 		<>
@@ -52,18 +45,6 @@ function Giftcard<T extends React.ElementType = "div">({
 
 			{Component}
 		</>
-	)
-}
-
-function Root({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return (
-		<motion.div
-			className={cn(
-				"w-full aspect-card flex p-4 pointer-events-none select-none flex-col justify-between rounded-[24px] bg-[blue] relative",
-				className
-			)}
-			{...props}
-		/>
 	)
 }
 
@@ -139,26 +120,42 @@ function FlippedView({ className, ...props }: { className?: string } & HTMLMotio
 	)
 }
 
+function Root({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
+	return (
+		<motion.div
+			layoutId="giftcard"
+			className={cn(
+				"w-full aspect-card flex p-4 pointer-events-none select-none flex-col justify-between rounded-[24px] bg-[blue] relative",
+				className
+			)}
+			{...props}
+		/>
+	)
+}
+
 function MerchantLogo({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return <motion.div layoutId="merchant-logo" className={cn(className)} {...props} />
+	return (
+		<motion.div layoutId="merchant-logo" initial={false} className={cn(className)} {...props} />
+	)
 }
 
 function Hashcode({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return <motion.div layoutId="hashcode" className={cn(className)} {...props} />
+	return <motion.div layoutId="hashcode" initial={false} className={cn(className)} {...props} />
 }
 
 function Logo({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return <motion.div layoutId="logo" className={cn(className)} {...props} />
+	return <motion.div layoutId="logo" initial={false} className={cn(className)} {...props} />
 }
 
 function Expiration({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return <motion.div layoutId="expiration" className={cn(className)} {...props} />
+	return <motion.div layoutId="expiration" initial={false} className={cn(className)} {...props} />
 }
 
 function Balance({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
 		<motion.div
 			layoutId="balance"
+			initial={false}
 			className={cn(
 				"absolute inset-0 flex z-10 items-center justify-center pointer-events-none",
 				className

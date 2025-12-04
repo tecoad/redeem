@@ -16,7 +16,7 @@
  * @see https://stackoverflow.com/a/76630444/6543935
  * @requirements npm install react-responsive
  */
-import { useEffect, useState } from "react"
+import { useLayoutEffect, useState } from "react"
 
 const breakpoints = {
 	xs: "480px",
@@ -31,12 +31,10 @@ export function useBreakpoint<K extends string>(breakpointKey: K) {
 	const numericValue = Number.parseInt(breakpointValue, 10)
 
 	// Logo: isAbove = false, isBelow = true (Mobile First).
-	const [bool, setBool] = useState(false)
+	const [bool, setBool] = useState<boolean | null>(null)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const media = window.matchMedia(`(min-width: ${numericValue}px)`)
-
-		// Força a leitura do valor real assim que monta no cliente
 		setBool(media.matches)
 
 		const listener = (e: MediaQueryListEvent) => setBool(e.matches)
