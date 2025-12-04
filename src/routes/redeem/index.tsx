@@ -49,7 +49,7 @@ function RouteComponent() {
 							delay: 2,
 						}}
 					>
-						<Giftcard />
+						<Giftcard as={motion.div} layoutId="giftcard" />
 					</motion.div>
 				</div>
 

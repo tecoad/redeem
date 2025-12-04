@@ -10,7 +10,7 @@ function project(initialVelocity: number, decelerationRate = 0.998) {
 }
 
 export function DraggableCard({ onSnap }: { onSnap?: () => void }) {
-	const [snap, setSnap] = React.useState(false)
+	const [_snap, setSnap] = React.useState(false)
 	const y = useSpring(0, { damping: 38, stiffness: 550 })
 
 	// Measure card and target using useUnscaledMeasure (handles parent scale)
@@ -66,7 +66,6 @@ export function DraggableCard({ onSnap }: { onSnap?: () => void }) {
 				onPanEnd={onPanEnd}
 				style={{ y }}
 				animate={{
-					background: snap ? "red" : "blue",
 					transition: {
 						type: "spring",
 						stiffness: 350,

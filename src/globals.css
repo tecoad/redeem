@@ -29,3 +29,16 @@
 	--aspect-card: 1.5925;
 	--aspect-golden-portrait: 0.618;
 }
+
+@layer components {
+	/* Remove transition from everything by default,  */
+	/* ::view-transition-old(*) {
+		animation: none;
+		opacity: 0;
+	}
+
+	::view-transition-new(*) {
+		animation: none;
+		opacity: 1;
+	} */
+}
