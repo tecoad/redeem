@@ -6,6 +6,7 @@ import {
 	type VariantLabels,
 } from "motion/react"
 import { useEffect, useRef } from "react"
+import { cn } from "@/lib/utils"
 
 export type TextRollProps = {
 	children: string
@@ -15,6 +16,7 @@ export type TextRollProps = {
 	getEnterDelay?: (index: number) => number
 	getExitDelay?: (index: number) => number
 	className?: string
+	activeClassName?: string
 	transition?: Transition
 	variants?: {
 		enter: {
@@ -37,6 +39,7 @@ export function TextRoll({
 	getEnterDelay = i => i * 0.1,
 	getExitDelay = i => i * 0.1 + 0.2,
 	className,
+	activeClassName,
 	transition = { ease: "easeIn" },
 	variants,
 	onAnimationComplete,
@@ -92,7 +95,10 @@ export function TextRoll({
 							{letter === " " ? "\u00A0" : letter}
 						</motion.span>
 						<motion.span
-							className="absolute inline-block [backface-visibility:hidden] [transform-origin:50%_100%]"
+							className={cn(
+								"absolute inline-block [backface-visibility:hidden] [transform-origin:50%_100%]",
+								activeClassName
+							)}
 							initial={variants?.exit?.initial ?? defaultVariants.exit.initial}
 							animate={
 								trigger

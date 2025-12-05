@@ -5,7 +5,6 @@ function Root({ className, ...props }: { className?: string } & HTMLMotionProps<
 	return (
 		<motion.div
 			data-giftcard
-			layoutId="giftcard"
 			className={cn(
 				"w-full aspect-card flex p-4 pointer-events-none select-none flex-col justify-between rounded-[24px] bg-[blue] relative",
 				className
@@ -16,9 +15,7 @@ function Root({ className, ...props }: { className?: string } & HTMLMotionProps<
 }
 
 function MerchantLogo({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return (
-		<motion.div data-merchant-logo layoutId="merchant-logo" className={cn(className)} {...props} />
-	)
+	return <motion.div data-merchant-logo className={cn(className)} {...props} />
 }
 
 function Hashcode({
@@ -28,7 +25,7 @@ function Hashcode({
 }: { className?: string } & HTMLMotionProps<"div">) {
 	const parts = typeof children === "string" ? children.split(" ") : [children]
 	return (
-		<motion.div layout className={cn("whitespace-nowrap flex gap-1", className)} {...props}>
+		<motion.div className={cn("whitespace-nowrap flex gap-1", className)} {...props}>
 			{parts.map((part, idx) => (
 				<motion.div
 					data-hashcode-part
@@ -55,7 +52,7 @@ function Hashcode({
 }
 
 function Logo({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
-	return <motion.div data-logo layoutId="logo" className={cn(className)} {...props} />
+	return <motion.div data-logo className={cn(className)} {...props} />
 }
 
 function Expiration({
@@ -64,7 +61,7 @@ function Expiration({
 	...props
 }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
-		<motion.div layoutId="expiration" className={cn("overflow-hidden", className)} {...props}>
+		<motion.div className={cn("overflow-hidden", className)} {...props}>
 			<motion.div
 				data-expiration
 				style={{
@@ -81,7 +78,6 @@ function Balance({ className, ...props }: { className?: string } & HTMLMotionPro
 	return (
 		<motion.div
 			data-balance
-			layoutId="balance"
 			className={cn(
 				"absolute inset-0 flex z-10 items-center justify-center pointer-events-none",
 				className

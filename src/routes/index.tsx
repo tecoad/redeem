@@ -1,6 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router"
-import { animate, motion, useMotionValue, useMotionValueEvent, useTransform } from "motion/react"
-import { useState } from "react"
+import { createFileRoute, useRouter } from "@tanstack/react-router"
+import {
+	animate,
+	motion,
+	useMotionValue,
+	useMotionValueEvent,
+	useSpring,
+	useTransform,
+	useVelocity,
+} from "motion/react"
+import { useEffect, useRef, useState } from "react"
 import DefaultView from "@/components/Giftcard/DefaultView"
 import Giftcard from "@/components/Giftcard/Giftcard"
 import Heading from "@/components/Heading"
@@ -23,11 +31,44 @@ function App() {
 	const [constrainsRef, constrainsBounds] = useUnscaledMeasure()
 	const [cardRef, cardBounds] = useUnscaledMeasure()
 	const [triggerKey, setTriggerKey] = useState(0)
+	const router = useRouter()
+
+	// Motion blur for card entry animation
+	const entryY = useMotionValue(900)
+	const entryVelocity = useVelocity(entryY)
+	const blurFilterRef = useRef<SVGFEGaussianBlurElement>(null)
+
+	// Update SVG filter blur based on velocity
+	useMotionValueEvent(entryVelocity, "change", velocity => {
+		if (blurFilterRef.current) {
+			// Map velocity to blur amount (absolute value since we care about speed, not direction)
+			const blurAmount = Math.min(Math.abs(velocity) / 100, 20)
+			blurFilterRef.current.setAttribute("stdDeviation", `0,${blurAmount}`)
+		}
+	})
+
+	// Trigger entry animation on mount
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			animate(entryY, 0, {
+				type: "tween",
+				duration: 3,
+				ease: [0.16, 1, 0.3, 1],
+			})
+		}, 1200) // delay to match original
+
+		return () => clearTimeout(timeout)
+	}, [entryY])
 
 	// Motion value for Y position
 	const y = useMotionValue(0)
 	const maxY = constrainsBounds.height - cardBounds.height
 	const snapThreshold = maxY - 100
+
+	// Rotation based on drag velocity (spring-based)
+	const yVelocity = useVelocity(y)
+	const rotateRaw = useTransform(yVelocity, [-1000, 0, 1000], [-3, 0, 3])
+	const rotate = useSpring(rotateRaw, { stiffness: 300, damping: 20 })
 
 	// ClipPath transforms based on drag progress
 	// First title: more visible at top (0%), clips from top as card goes down
@@ -55,11 +96,10 @@ function App() {
 			})
 			if (snapToBottom) {
 				setTimeout(() => {
-					// router.navigate({ to: "/redeem" })
 					setTriggerKey(1)
 				}, 300)
 				setTimeout(() => {
-					// router.navigate({ to: "/redeem" })
+					router.navigate({ to: "/redeem" })
 				}, 1000)
 			} else {
 				setTriggerKey(0)
@@ -69,6 +109,14 @@ function App() {
 
 	return (
 		<div className="w-full h-full" ref={layoutRef}>
+			{/* SVG Motion Blur Filter */}
+			<svg width="0" height="0" className="absolute">
+				<defs>
+					<filter id="card-motion-blur" x="-50%" y="-50%" width="200%" height="200%">
+						<feGaussianBlur ref={blurFilterRef} in="SourceGraphic" stdDeviation="0,0" />
+					</filter>
+				</defs>
+			</svg>
 			<WaterRippleEffect
 				width={layoutBounds.width}
 				height={layoutBounds.height}
@@ -91,7 +139,7 @@ function App() {
 						<motion.div
 							drag="y"
 							ref={cardRef}
-							style={{ y }}
+							style={{ y, rotate }}
 							onDragEnd={handleDragEnd}
 							dragTransition={{
 								bounceStiffness: 600,
@@ -108,8 +156,12 @@ function App() {
 						>
 							<motion.div
 								className="pointer-events-none"
-								initial={{ y: "900px", rotate: "10deg", x: "-30px" }}
-								animate={{ y: "0px", rotate: "0deg", x: "0px" }}
+								style={{
+									y: entryY,
+									filter: "url(#card-motion-blur)",
+								}}
+								initial={{ rotate: "10deg", x: "-30px" }}
+								animate={{ rotate: "0deg", x: "0px" }}
 								transition={{
 									type: "tween",
 									duration: 3,
@@ -206,7 +258,7 @@ function App() {
 											},
 										}}
 									>
-										You've been gifted a digital giftcard from Matt!
+										You've been gifted a digital giftcard from Matt.
 									</TextEffect>
 								</div>
 							</Heading.Title>
@@ -219,6 +271,7 @@ function App() {
 									You are&nbsp;
 									<TextRoll
 										className="inline"
+										activeClassName="text-primary"
 										duration={0.5}
 										trigger={borderMode === "dash"}
 										oneWay
