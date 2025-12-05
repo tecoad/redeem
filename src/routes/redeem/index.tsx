@@ -1,9 +1,10 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { motion } from "motion/react"
-import { useState } from "react"
+import { motion, stagger, useAnimate } from "motion/react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/Button"
 import HowToDrawer from "@/components/Drawers/HowToDrawer"
-import Giftcard from "@/components/Giftcard"
+import DetailedView from "@/components/Giftcard/DetailedView"
+import Giftcard from "@/components/Giftcard/Giftcard"
 import Layout from "@/components/Layout"
 
 export const Route = createFileRoute("/redeem/")({
@@ -13,78 +14,100 @@ export const Route = createFileRoute("/redeem/")({
 function RouteComponent() {
 	const router = useRouter()
 	const [drawerOpen, setDrawerOpen] = useState(false)
+	const [scope, animate] = useAnimate()
 
-	const variants = {
-		initial: {},
-		revealed: {},
-		final: {},
-	}
+	useEffect(() => {
+		// Espera as fontes carregarem e o DOM estar pronto
+		animate([
+			// 1. empty → real (TODOS revelam o valor)
+			["[data-hashcode-empty]", { translateY: "-100%" }, { delay: stagger(0.04), at: 0.3 }],
+			["[data-hashcode-real]", { translateY: "0%" }, { delay: stagger(0.04), at: 0.3 }],
+			["[data-hashcode-masked]", { translateY: "100%" }, { delay: stagger(0.04), at: 0.3 }],
+
+			// 2. real → masked (apenas 4 PRIMEIROS)
+			[
+				"[data-hashcode-part]:nth-child(-n+4) [data-hashcode-real]",
+				{ translateY: "-100%" },
+				{ delay: stagger(0.05), at: 2.5 },
+			],
+			[
+				"[data-hashcode-part]:nth-child(-n+4) [data-hashcode-masked]",
+				{ translateY: "0%" },
+				{ delay: stagger(0.05), at: 2.5 },
+			],
+
+			// 3. masked → empty (apenas 3 PRIMEIROS)
+			[
+				"[data-hashcode-part]:nth-child(-n+3) [data-hashcode-masked]",
+				{ translateY: "-100%" },
+				{ delay: stagger(0.08), at: 4.5 },
+			],
+			[
+				"[data-hashcode-part]:nth-child(-n+3) [data-hashcode-empty]",
+				{ translateY: "0%" },
+				{ delay: stagger(0.08), at: 4.5 },
+			],
+
+			["[data-expiration]", { translateY: "0%" }, { at: 4.75 }],
+			[
+				"[data-hashcode-wrapper]",
+				{ top: "0%", translateY: "0%" },
+				{ at: 4.75, type: "spring", stiffness: 200, damping: 20 },
+			],
+			[
+				"[data-card-wrapper]",
+				{ top: "0%", translateY: "0%" },
+				{ at: 4.95, type: "spring", stiffness: 200, damping: 20 },
+			],
+			[
+				"[data-footer]",
+				{ height: [0, "auto"] },
+				{ at: 5.1, type: "spring", stiffness: 200, damping: 20 },
+			],
+		])
+	}, [animate])
 
 	return (
 		<>
-			<Layout
-				as={motion.div}
-				className="gap-0"
-				variants={variants}
-				initial="initial"
-				animate="final"
-			>
-				<div className="w-full h-full relative">
-					<motion.div
-						className="absolute w-full"
-						variants={{
-							initial: {
+			<div ref={scope} className="w-full h-full">
+				<Layout className="gap-0">
+					<div className="w-full h-full relative">
+						<motion.div
+							data-card-wrapper
+							className="absolute w-full"
+							style={{
 								top: "50%",
 								translateY: "-50%",
-							},
-							revealed: {
-								top: "50%",
-								translateY: "-50%",
-							},
-							final: {
-								top: "0%",
-								translateY: "0%",
-							},
-						}}
-						transition={{
-							duration: 0.15,
-							type: "spring",
-							stiffness: 300,
-							damping: 20,
-							delay: 2,
-						}}
-					>
-						<Giftcard view="detailed" />
-					</motion.div>
-				</div>
-
-				<Layout.Footer
-					as={motion.div}
-					variants={{
-						initial: {
-							height: 0,
-						},
-						final: {
-							height: "auto",
-						},
-					}}
-					transition={{
-						delay: 3,
-					}}
-				>
-					<div className="overflow-hidden w-full flex items-center justify-center flex-col gap-2">
-						<Button
-							size="medium"
-							className="w-auto"
-							variant="ghost"
-							onClick={() => setDrawerOpen(true)}
+							}}
 						>
-							How to redeem?
-						</Button>
-						<Button onClick={() => router.navigate({ to: "/redeem/initiate" })}>Redeem now</Button>
+							<Giftcard>
+								<DetailedView />
+							</Giftcard>
+						</motion.div>
 					</div>
-				</Layout.Footer>
-			</Layout>
+
+					<Layout.Footer
+						as={motion.div}
+						initial={{ height: 0 }}
+						animate={{ height: "auto" }}
+						transition={{ delay: 5.1, duration: 0.3 }}
+					>
+						<div className="overflow-hidden w-full flex items-center justify-center flex-col gap-2">
+							<Button
+								size="medium"
+								className="w-auto"
+								variant="ghost"
+								onClick={() => setDrawerOpen(true)}
+							>
+								How to redeem?
+							</Button>
+							<Button onClick={() => router.navigate({ to: "/redeem/initiate" })}>
+								Redeem now
+							</Button>
+						</div>
+					</Layout.Footer>
+				</Layout>
+			</div>
 			<HowToDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
 		</>
 	)

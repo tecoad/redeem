@@ -13,7 +13,7 @@ function Root<T extends React.ElementType = "div">({
 	return (
 		<Component
 			className={cn(
-				"p-4 flex gap-4 **:border **:border-[green] w-full h-full items-start justify-between flex-col",
+				"p-4 flex gap-4  w-full h-full items-start justify-between flex-col",
 				className
 			)}
 			{...props}

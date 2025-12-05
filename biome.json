@@ -27,8 +27,10 @@
 		"rules": {
 			"recommended": true,
 			"correctness": {
-				"noUnknownTypeSelector": "off"
+				"noUnknownTypeSelector": "off",
+				"noUnusedVariables": "off"
 			},
+
 			"a11y": {
 				"noSvgWithoutTitle": "off"
 			}

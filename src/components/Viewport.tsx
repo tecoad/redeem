@@ -64,8 +64,9 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 					<div className="absolute inset-0  pointer-events-none bg-no-repeat bg-center bg-cover bg-[url(/iphone.svg)] z-10" />
 
 					<ScaleProvider scale={scale}>
+						{/* Test overflow here */}
 						<div
-							className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]  overflow-hidden"
+							className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]  "
 							id="safe_area"
 						>
 							{children}
