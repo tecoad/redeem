@@ -5,6 +5,7 @@ import DefaultView from "@/components/Giftcard/DefaultView"
 import Giftcard from "@/components/Giftcard/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
+import WaterRippleEffect, { WaterRippleExclude } from "@/components/Shader"
 import SVGBorder, { type BorderMode } from "@/components/SvgBorder"
 import { TextShimmer } from "@/components/TextShimmer"
 import { useUnscaledMeasure } from "@/lib/hooks/useScale"
@@ -16,8 +17,10 @@ export const Route = createFileRoute("/")({
 
 function App() {
 	// Measure card and target using useUnscaledMeasure (handles parent scale)
+	const [layoutRef, layoutBounds] = useUnscaledMeasure()
 	const [constrainsRef, constrainsBounds] = useUnscaledMeasure()
 	const [cardRef, cardBounds] = useUnscaledMeasure()
+	const [triggerKey, setTriggerKey] = useState(0)
 
 	// Motion value for Y position
 	const y = useMotionValue(0)
@@ -51,82 +54,109 @@ function App() {
 			if (snapToBottom) {
 				setTimeout(() => {
 					// router.navigate({ to: "/redeem" })
+					setTriggerKey(1)
+				}, 300)
+				setTimeout(() => {
+					// router.navigate({ to: "/redeem" })
 				}, 1000)
+			} else {
+				setTriggerKey(0)
 			}
 		}, 200)
 	}
 
 	return (
-		<Layout>
-			<div
-				ref={constrainsRef}
-				className="flex items-center w-full @container flex-col h-full relative justify-between"
+		<div className="w-full h-full" ref={layoutRef}>
+			<WaterRippleEffect
+				width={layoutBounds.width}
+				height={layoutBounds.height}
+				triggerKey={triggerKey}
+				center={{
+					x: 0.5,
+					y: 0.95,
+				}}
+				frequency={40}
+				amplitude={0.08}
+				speed={6}
+				decay={3}
+				shadowStrength={0.1}
 			>
-				<motion.div
-					drag="y"
-					ref={cardRef}
-					style={{ y }}
-					onDragEnd={handleDragEnd}
-					dragTransition={{
-						bounceStiffness: 600,
-						bounceDamping: 10,
-						power: 0.2,
-					}}
-					whileDrag={{
-						scale: 0.95,
-						boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.1)",
-					}}
-					dragElastic={0.1}
-					dragConstraints={{ top: 0, bottom: maxY }}
-					className="w-full z-10 top-0 absolute rounded-[24px]"
-				>
-					<Giftcard>
-						<DefaultView />
-					</Giftcard>
-				</motion.div>
-
-				{/* Snap zone target area */}
-				<motion.div
-					style={{
-						width: cardBounds.width + 14,
-						height: cardBounds.height + 14,
-						translateY: 7,
-						opacity: !cardBounds.width ? 0 : 1,
-					}}
-					className="bottom-0 pointer-events-none absolute bg-muted rounded-[31.5px] flex items-center justify-center p-6"
-				>
-					<SVGBorder
-						mode={borderMode}
-						borderRadius={29.5}
-						className={cn(
-							"text-muted-foreground/20 absolute inset-0 pointer-events-none",
-							borderMode === "dash" && "text-primary"
-						)}
-						glow={0}
-					/>
-
-					<TextShimmer className="text-[24px] text-center text-pretty">
-						drag card to activate it
-					</TextShimmer>
-				</motion.div>
-
-				<Heading className="relative   top-1/2 -translate-y-1/2 h-full flex flex-col items-center  justify-center select-none pointer-events-none w-full">
-					<Heading.Title
-						as={motion.div}
-						style={{ clipPath: clipPath1 }}
-						className="text-center  z-10 absolute inset-0  flex items-center"
+				<Layout>
+					<div
+						ref={constrainsRef}
+						className="flex items-center w-full @container flex-col h-full relative justify-between"
 					>
-						You just received a Wine R$50 digital giftcard.
-					</Heading.Title>
-					<Heading.Title
-						as={motion.div}
-						className="text-center absolute inset-0  flex items-center"
-						style={{ clipPath: clipPath2 }}
-					>
-						You are redeeming a Wine R$50 digital giftcard.
-					</Heading.Title>
-				</Heading>
-			</div>
-		</Layout>
+						<motion.div
+							drag="y"
+							ref={cardRef}
+							style={{ y }}
+							onDragEnd={handleDragEnd}
+							dragTransition={{
+								bounceStiffness: 600,
+								bounceDamping: 10,
+								power: 0.2,
+							}}
+							whileDrag={{
+								scale: 0.95,
+								boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.1)",
+							}}
+							dragElastic={0.1}
+							dragConstraints={{ top: 0, bottom: maxY }}
+							className="w-full z-10 top-0 absolute rounded-[24px]"
+						>
+							<WaterRippleExclude>
+								<Giftcard>
+									<DefaultView />
+								</Giftcard>
+							</WaterRippleExclude>
+						</motion.div>
+
+						{/* Snap zone target area */}
+						<motion.div
+							style={{
+								width: cardBounds.width + 14,
+								height: cardBounds.height + 14,
+								translateY: 7,
+								opacity: !cardBounds.width ? 0 : 1,
+							}}
+							className="bottom-0 pointer-events-none absolute bg-muted rounded-[31.5px] flex items-center justify-center p-6"
+						>
+							{cardBounds.width && (
+								<SVGBorder
+									mode={borderMode}
+									borderRadius={29.5}
+									className={cn(
+										"text-muted-foreground/20 absolute inset-0 pointer-events-none",
+										borderMode === "dash" && "text-primary"
+									)}
+									glow={0}
+								/>
+							)}
+
+							<TextShimmer className="text-[24px] text-center text-pretty">
+								drag card to activate it
+							</TextShimmer>
+						</motion.div>
+
+						<Heading className="relative   top-1/2 -translate-y-1/2 h-full flex flex-col items-center  justify-center select-none pointer-events-none w-full">
+							<Heading.Title
+								as={motion.div}
+								style={{ clipPath: clipPath1 }}
+								className="text-center  z-10 absolute inset-0  flex items-center"
+							>
+								You just received a Wine R$50 digital giftcard.
+							</Heading.Title>
+							<Heading.Title
+								as={motion.div}
+								className="text-center absolute inset-0  flex items-center"
+								style={{ clipPath: clipPath2 }}
+							>
+								You are redeeming a Wine R$50 digital giftcard.
+							</Heading.Title>
+						</Heading>
+					</div>
+				</Layout>
+			</WaterRippleEffect>
+		</div>
 	)
 }

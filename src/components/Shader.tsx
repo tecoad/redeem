@@ -1,3 +1,4 @@
+import { LayoutGroup } from "motion/react"
 import {
 	createContext,
 	type ReactNode,
@@ -268,6 +269,9 @@ export function WaterRippleEffect({
 	const canvasWidth = Math.floor(width * CANVAS_DPI)
 	const canvasHeight = Math.floor(height * CANVAS_DPI)
 
+	// Só aplica o filtro quando tiver dimensões válidas
+	const hasValidDimensions = width > 0 && height > 0
+
 	return (
 		<WaterRippleContext.Provider value={{ isAnimating }}>
 			<svg width={0} height={0} style={{ display: "none" }} aria-hidden="true">
@@ -294,34 +298,36 @@ export function WaterRippleEffect({
 				</defs>
 			</svg>
 
-			<div style={{ position: "relative", width, height }}>
+			<div style={{ position: "relative", width: "100%", height: "100%" }}>
 				{/* Content with displacement filter */}
 				<div
 					style={{
-						width,
-						height,
-						overflow: "hidden",
-						filter: `url(#${filterId}_filter)`,
+						width: "100%",
+						height: "100%",
+						overflow: "visible",
+						filter: hasValidDimensions ? `url(#${filterId}_filter)` : undefined,
 						...style,
 					}}
 				>
 					{children}
 				</div>
 
-				{/* Shadow overlay */}
-				<canvas
-					ref={shadowCanvasRef}
-					width={canvasWidth}
-					height={canvasHeight}
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						width,
-						height,
-						pointerEvents: "none",
-					}}
-				/>
+				{/* Shadow overlay - só mostra quando tem dimensões válidas */}
+				{hasValidDimensions && (
+					<canvas
+						ref={shadowCanvasRef}
+						width={canvasWidth}
+						height={canvasHeight}
+						style={{
+							position: "absolute",
+							top: 0,
+							left: 0,
+							width: "100%",
+							height: "100%",
+							pointerEvents: "none",
+						}}
+					/>
+				)}
 			</div>
 
 			{/* Displacement map canvas (hidden) */}
@@ -348,6 +354,7 @@ export function WaterRippleExclude({ children, className }: WaterRippleExcludePr
 	const { isAnimating } = useContext(WaterRippleContext)
 	const originalRef = useRef<HTMLDivElement>(null)
 	const [fixedStyle, setFixedStyle] = useState<React.CSSProperties | null>(null)
+	const portalLayoutId = useId()
 
 	useLayoutEffect(() => {
 		if (isAnimating && originalRef.current) {
@@ -373,9 +380,11 @@ export function WaterRippleExclude({ children, className }: WaterRippleExcludePr
 			{isAnimating &&
 				fixedStyle &&
 				createPortal(
-					<div className={className} style={fixedStyle}>
-						{children}
-					</div>,
+					<LayoutGroup id={portalLayoutId}>
+						<div className={className} style={fixedStyle}>
+							{children}
+						</div>
+					</LayoutGroup>,
 					document.body
 				)}
 		</>
