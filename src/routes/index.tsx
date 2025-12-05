@@ -209,7 +209,7 @@ function App() {
 							)}
 
 							<TextShimmer className="text-[24px] text-center text-pretty">
-								drag card to activate it
+								drag to activate it
 							</TextShimmer>
 						</motion.div>
 
