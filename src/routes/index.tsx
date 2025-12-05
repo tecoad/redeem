@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { animate, motion, useMotionValue, useTransform } from "motion/react"
+import { animate, motion, useMotionValue, useMotionValueEvent, useTransform } from "motion/react"
+import { useState } from "react"
 import DefaultView from "@/components/Giftcard/DefaultView"
 import Giftcard from "@/components/Giftcard/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
+import SVGBorder, { type BorderMode } from "@/components/SvgBorder"
 import { TextShimmer } from "@/components/TextShimmer"
 import { useUnscaledMeasure } from "@/lib/hooks/useScale"
+import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/")({
 	component: App,
@@ -27,8 +30,12 @@ function App() {
 	// Second title: more visible at bottom, clips from bottom when at top
 	const clipPath2 = useTransform(y, [0, maxY || 1], ["inset(0 0 100% 0)", "inset(0 0 0% 0)"])
 
-	// Border for snap zone - shows when drag position will trigger snap to bottom
-	const snapZoneBorderWidth = useTransform(y, currentY => (currentY >= snapThreshold ? 2 : 0))
+	const [borderMode, setBorderMode] = useState<BorderMode>("trail")
+
+	useMotionValueEvent(y, "change", currentY => {
+		const inSnapZone = currentY >= snapThreshold
+		setBorderMode(inSnapZone ? "dash" : "trail")
+	})
 
 	// Snap logic on drag end
 	const handleDragEnd = () => {
@@ -81,14 +88,23 @@ function App() {
 				{/* Snap zone target area */}
 				<motion.div
 					style={{
-						borderWidth: snapZoneBorderWidth,
 						width: cardBounds.width + 14,
 						height: cardBounds.height + 14,
 						translateY: 7,
 						opacity: !cardBounds.width ? 0 : 1,
 					}}
-					className=" bottom-0 pointer-events-none absolute bg-muted rounded-[31.5px] flex items-center justify-center p-6"
+					className="bottom-0 pointer-events-none absolute bg-muted rounded-[31.5px] flex items-center justify-center p-6"
 				>
+					<SVGBorder
+						mode={borderMode}
+						borderRadius={29.5}
+						className={cn(
+							"text-muted-foreground/20 absolute inset-0 pointer-events-none",
+							borderMode === "dash" && "text-primary"
+						)}
+						glow={0}
+					/>
+
 					<TextShimmer className="text-[24px] text-center text-pretty">
 						drag card to activate it
 					</TextShimmer>
