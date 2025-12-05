@@ -6,7 +6,7 @@ function Root({ className, ...props }: { className?: string } & HTMLMotionProps<
 		<motion.div
 			data-giftcard
 			className={cn(
-				"w-full aspect-card flex p-4 pointer-events-none select-none flex-col justify-between rounded-[24px] bg-[blue] relative",
+				"w-full aspect-card flex p-4 pointer-events-none select-none flex-col justify-between rounded-[24px] bg-[#48B69C] relative",
 				className
 			)}
 			{...props}
