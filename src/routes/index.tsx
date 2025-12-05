@@ -7,6 +7,8 @@ import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
 import WaterRippleEffect, { WaterRippleExclude } from "@/components/Shader"
 import SVGBorder, { type BorderMode } from "@/components/SvgBorder"
+import { TextEffect } from "@/components/TextEffect"
+import { TextRoll } from "@/components/TextRoll"
 import { TextShimmer } from "@/components/TextShimmer"
 import { useUnscaledMeasure } from "@/lib/hooks/useScale"
 import { cn } from "@/lib/utils"
@@ -104,29 +106,50 @@ function App() {
 							dragConstraints={{ top: 0, bottom: maxY }}
 							className="w-full z-10 top-0 absolute rounded-[24px]"
 						>
-							<WaterRippleExclude>
-								<Giftcard>
-									<DefaultView />
-								</Giftcard>
-							</WaterRippleExclude>
+							<motion.div
+								className="pointer-events-none"
+								initial={{ y: "900px", rotate: "10deg", x: "-30px" }}
+								animate={{ y: "0px", rotate: "0deg", x: "0px" }}
+								transition={{
+									type: "tween",
+									duration: 3,
+									ease: [0.16, 1, 0.3, 1],
+									delay: 1.2,
+								}}
+							>
+								<WaterRippleExclude>
+									<Giftcard>
+										<DefaultView />
+									</Giftcard>
+								</WaterRippleExclude>
+							</motion.div>
 						</motion.div>
 
 						{/* Snap zone target area */}
 						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{
+								type: "spring",
+								stiffness: 200,
+								damping: 20,
+								delay: 2,
+							}}
 							style={{
 								width: cardBounds.width + 14,
 								height: cardBounds.height + 14,
 								translateY: 7,
 								opacity: !cardBounds.width ? 0 : 1,
 							}}
-							className="bottom-0 pointer-events-none absolute bg-muted rounded-[31.5px] flex items-center justify-center p-6"
+							className="bottom-0 pointer-events-none absolute bg-muted/15 rounded-[31.5px] flex items-center justify-center p-6"
 						>
 							{cardBounds.width && (
 								<SVGBorder
 									mode={borderMode}
 									borderRadius={29.5}
 									className={cn(
-										"text-muted-foreground/20 absolute inset-0 pointer-events-none",
+										"text-muted-foreground/10 absolute inset-0 pointer-events-none",
 										borderMode === "dash" && "text-primary"
 									)}
 									glow={0}
@@ -144,14 +167,66 @@ function App() {
 								style={{ clipPath: clipPath1 }}
 								className="text-center  z-10 absolute inset-0  flex items-center"
 							>
-								You just received a Wine R$50 digital giftcard.
+								<div className="inline w-full px-4">
+									<TextEffect
+										per="word"
+										delay={0.7}
+										// segmentWrapperClassName="overflow-hidden align-top"
+										variants={{
+											container: {
+												hidden: {
+													y: "20%",
+												},
+												visible: {
+													y: "0%",
+													transition: {
+														staggerChildren: 0.02,
+														stiffness: 200,
+														damping: 10,
+														delay: 0.3,
+													},
+												},
+											},
+											item: {
+												hidden: {
+													y: "100%",
+													filter: "blur(4px)",
+													opacity: 0,
+												},
+												visible: {
+													y: "0%",
+													filter: "blur(0px)",
+													opacity: 1,
+													transition: {
+														type: "spring",
+														stiffness: 100,
+														damping: 8,
+													},
+												},
+											},
+										}}
+									>
+										You've been gifted a digital giftcard from Matt!
+									</TextEffect>
+								</div>
 							</Heading.Title>
 							<Heading.Title
 								as={motion.div}
 								className="text-center absolute inset-0  flex items-center"
 								style={{ clipPath: clipPath2 }}
 							>
-								You are redeeming a Wine R$50 digital giftcard.
+								<div className="inline w-full">
+									You are&nbsp;
+									<TextRoll
+										className="inline"
+										duration={0.5}
+										trigger={borderMode === "dash"}
+										oneWay
+									>
+										activating
+									</TextRoll>
+									&nbsp;a Wine R$50 digital giftcard.
+								</div>
 							</Heading.Title>
 						</Heading>
 					</div>
