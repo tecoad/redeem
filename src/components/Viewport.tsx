@@ -66,6 +66,7 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 						height: BASE_HEIGHT,
 						transform: `scale(${scale})`,
 					}}
+					data-vaul-drawer-wrapper
 					className={cn(
 						"relative origin-center flex shrink-0 flex-col   rounded-[76px] overflow-hidden bg-white shadow-2xl cursor-[url('/cursor.svg'),pointer]"
 					)}
@@ -87,6 +88,7 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 							{/* Test overflow here */}
 							<div
 								className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]"
+								data-vaul-drawer-wrapper
 								id="safe_area"
 							>
 								{children}

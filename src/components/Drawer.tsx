@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { IconXmarkOutline18 } from "nucleo-ui-outline-18"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { type DialogProps, Drawer as VaulDrawer } from "vaul"
+import { useDrawerScale } from "@/lib/hooks/useDrawerScale"
 import { useUnscaledMeasure } from "@/lib/hooks/useScale"
 import { cn } from "@/lib/utils"
 
@@ -13,15 +14,23 @@ export interface DrawerProps extends Omit<DialogProps, "children"> {
 }
 
 function Root({ children, closable = true, activeElementKey, ...props }: DrawerProps) {
-	const { fadeFromIndex, snapPoints, className, ...rest } = props
+	const { fadeFromIndex, snapPoints, className, onOpenChange, open, ...rest } = props
 	const [container, setContainer] = useState<HTMLElement | null>(null)
 	const [elementRef, bounds] = useUnscaledMeasure()
+	const { setDrawerOpen } = useDrawerScale()
 	const previousHeightRef = useRef<number>(0)
 
 	useEffect(() => {
 		const element = document.getElementById("safe_area")
 		setContainer(element)
 	}, [])
+
+	// Sync drawer scale state with controlled open prop
+	useEffect(() => {
+		if (open !== undefined) {
+			setDrawerOpen(open)
+		}
+	}, [open, setDrawerOpen])
 
 	const opacityDuration = useMemo(() => {
 		const MIN_DURATION = 0.15
@@ -43,7 +52,15 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 	if (!container) return null
 
 	return (
-		<VaulDrawer.Root container={container} {...rest}>
+		<VaulDrawer.Root
+			container={container}
+			{...rest}
+			open={open}
+			onOpenChange={isOpen => {
+				setDrawerOpen(isOpen)
+				onOpenChange?.(isOpen)
+			}}
+		>
 			<VaulDrawer.Overlay className="absolute  bg-black/40 -inset-[100px]" />
 
 			<VaulDrawer.Content

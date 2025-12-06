@@ -1,4 +1,5 @@
 import { forwardRef } from "react"
+import { useDrawerScale } from "@/lib/hooks/useDrawerScale"
 import { cn } from "@/lib/utils"
 
 type RootProps<T extends React.ElementType = "div"> = {
@@ -9,10 +10,15 @@ type RootProps<T extends React.ElementType = "div"> = {
 
 const Root = forwardRef<HTMLDivElement, RootProps>(({ children, className, as, ...props }, ref) => {
 	const Component = as || "div"
+	const { isDrawerOpen } = useDrawerScale()
 	return (
 		<Component
 			ref={ref}
-			className={cn("p-4 flex gap-4 w-full h-full items-start justify-between flex-col", className)}
+			className={cn(
+				"p-4 flex gap-4 w-full h-full items-start justify-between flex-col transition-transform duration-200",
+				isDrawerOpen ? "scale-90" : "scale-100",
+				className
+			)}
 			{...props}
 		>
 			{children}
