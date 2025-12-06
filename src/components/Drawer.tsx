@@ -44,10 +44,11 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 
 	return (
 		<VaulDrawer.Root container={container} {...rest}>
-			<VaulDrawer.Overlay className="absolute inset-0 bg-black/40" />
+			<VaulDrawer.Overlay className="absolute  bg-black/40 -inset-[100px]" />
+
 			<VaulDrawer.Content
 				className={cn(
-					"flex px-3 flex-col   absolute bottom-3 overflow-hidden left-0 right-0 [--padding-x:30px]",
+					"flex px-4 flex-col [--initial-transform:118%]   absolute bottom-4 overflow-hidden left-0 right-0 [--padding-x:30px]",
 					className
 				)}
 			>

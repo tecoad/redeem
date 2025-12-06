@@ -5,10 +5,9 @@ import { GifterLogo, WineLogo } from "../Logos"
 function Root({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
 		<motion.div
-			layoutId="giftcard"
-			data-giftcard
 			className={cn(
 				"w-full aspect-card flex p-4 pointer-events-none select-none flex-col justify-between rounded-[24px] bg-[#48B69C] relative",
+				"[view-transition-name:giftcard]",
 				className
 			)}
 			{...props}
@@ -18,7 +17,7 @@ function Root({ className, ...props }: { className?: string } & HTMLMotionProps<
 
 function MerchantLogo({ className, ...props }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
-		<motion.div data-merchant-logo className={cn(className)} {...props}>
+		<motion.div className={cn(className)} {...props}>
 			<WineLogo className="w-24 text-[white]" />
 		</motion.div>
 	)

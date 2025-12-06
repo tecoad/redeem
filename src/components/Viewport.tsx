@@ -1,6 +1,6 @@
 import { useRouter } from "@tanstack/react-router"
 import type React from "react"
-import { useEffect, useRef, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react"
 import { useBreakpoint } from "@/lib/hooks/useBreakpoint"
 import { ScaleProvider } from "@/lib/hooks/useScale"
 import { cn } from "@/lib/utils"
@@ -8,10 +8,25 @@ import { cn } from "@/lib/utils"
 const BASE_WIDTH = 393
 const BASE_HEIGHT = 852
 
+// Context for portal container - allows children to portal inside the scaled viewport
+const PortalContainerContext = createContext<HTMLElement | null>(null)
+
+export function usePortalContainer() {
+	return useContext(PortalContainerContext)
+}
+
 function DesktopWrapper({ children }: { children: React.ReactNode }) {
 	const containerRef = useRef<HTMLDivElement>(null)
+	const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null)
 	const [scale, setScale] = useState<number | null>(null)
 	const router = useRouter()
+
+	// Ref callback to set portal container immediately when element is created
+	const portalRefCallback = useCallback((node: HTMLDivElement | null) => {
+		if (node) {
+			setPortalContainer(node)
+		}
+	}, [])
 
 	useEffect(() => {
 		const container = containerRef.current
@@ -52,7 +67,7 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 						transform: `scale(${scale})`,
 					}}
 					className={cn(
-						"relative origin-center flex shrink-0 flex-col  rounded-[76px] overflow-hidden bg-white shadow-2xl cursor-[url('/cursor.svg'),pointer]"
+						"relative origin-center flex shrink-0 flex-col   rounded-[76px] overflow-hidden bg-white shadow-2xl cursor-[url('/cursor.svg'),pointer]"
 					)}
 				>
 					{/* Back button */}
@@ -61,16 +76,28 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 						onClick={() => router.history.back()}
 						className="absolute  left-[36px] bottom-[42px] size-[46px] rounded-full z-15"
 					/>
+
+					{/* Shadow for the viewport */}
+					{/* <div className="absolute bottom-0 w-full h-[100px] bg-linear-to-b  pointer-events-none  from-transparent to-white/90 to-50% z-1" /> */}
+
 					<div className="absolute inset-0  pointer-events-none bg-no-repeat bg-center bg-cover bg-[url(/iphone.svg)] z-10" />
 
 					<ScaleProvider scale={scale}>
-						{/* Test overflow here */}
-						<div
-							className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]  "
-							id="safe_area"
-						>
-							{children}
-						</div>
+						<PortalContainerContext.Provider value={portalContainer}>
+							{/* Test overflow here */}
+							<div
+								className="w-full relative [--top-distance:7%] top-(--top-distance) h-[calc(100%-var(--top-distance)-11.5%)]"
+								id="safe_area"
+							>
+								{children}
+								{/* Portal container inside safe_area for same coordinate system */}
+								<div
+									ref={portalRefCallback}
+									id="portal_container"
+									className="absolute inset-0 pointer-events-none z-9999"
+								/>
+							</div>
+						</PortalContainerContext.Provider>
 					</ScaleProvider>
 				</div>
 			)}
@@ -79,10 +106,25 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 }
 
 function MobileWrapper({ children }: { children: React.ReactNode }) {
+	const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null)
+
+	const portalRefCallback = useCallback((node: HTMLDivElement | null) => {
+		if (node) {
+			setPortalContainer(node)
+		}
+	}, [])
+
 	return (
-		<div id="safe_area" className="w-full h-full">
-			{children}
-		</div>
+		<PortalContainerContext.Provider value={portalContainer}>
+			<div id="safe_area" className="w-full h-full relative">
+				{children}
+				<div
+					ref={portalRefCallback}
+					id="portal_container"
+					className="absolute inset-0 pointer-events-none z-9999"
+				/>
+			</div>
+		</PortalContainerContext.Provider>
 	)
 }
 

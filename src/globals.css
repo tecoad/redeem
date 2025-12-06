@@ -28,17 +28,27 @@
 	--aspect-golden: 1.618;
 	--aspect-card: 1.5925;
 	--aspect-golden-portrait: 0.618;
+
+	--ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 @layer components {
-	/* Remove transition from everything by default,  */
-	/* ::view-transition-old(*) {
+	/* Remove transition from everything by default */
+	::view-transition-old(root),
+	::view-transition-new(root) {
 		animation: none;
-		opacity: 0;
 	}
 
-	::view-transition-new(*) {
-		animation: none;
-		opacity: 1;
-	} */
+	/* Giftcard shared element transition */
+	::view-transition-group(giftcard) {
+		animation-duration: 350ms;
+		animation-timing-function: var(--ease-out-cubic);
+	}
+
+	/* Keep the default crossfade for giftcard old/new states */
+	::view-transition-old(giftcard),
+	::view-transition-new(giftcard) {
+		animation-duration: 350ms;
+		animation-timing-function: var(--ease-out-cubic);
+	}
 }

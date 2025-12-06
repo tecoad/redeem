@@ -31,7 +31,6 @@ function App() {
 	const [cardRef, cardBounds] = useUnscaledMeasure()
 	const [triggerKey, setTriggerKey] = useState(0)
 	const router = useRouter()
-	const [disableLayoutId, setDisableLayoutId] = useState(false)
 
 	// Motion blur for card entry animation
 	const entryY = useMotionValue(800)
@@ -93,17 +92,11 @@ function App() {
 				type: "spring",
 				stiffness: 400,
 				damping: 30,
-				onComplete: () => {
-					setDisableLayoutId(false)
-				},
 			})
 			if (snapToBottom) {
 				setTimeout(() => {
 					setTriggerKey(1)
 				}, 300)
-				setTimeout(() => {
-					router.navigate({ to: "/redeem" })
-				}, 1000)
 			} else {
 				setTriggerKey(0)
 			}
@@ -128,6 +121,9 @@ function App() {
 					x: 0.5,
 					y: 0.95,
 				}}
+				onComplete={() => {
+					router.navigate({ to: "/redeem" })
+				}}
 				frequency={40}
 				amplitude={0.08}
 				speed={6}
@@ -143,7 +139,6 @@ function App() {
 							drag="y"
 							ref={cardRef}
 							style={{ y, rotate }}
-							onDrag={() => setDisableLayoutId(true)}
 							onDragEnd={handleDragEnd}
 							dragTransition={{
 								bounceStiffness: 600,
@@ -174,7 +169,7 @@ function App() {
 								}}
 							>
 								<WaterRippleExclude>
-									<Giftcard layoutId={disableLayoutId ? undefined : "giftcard"}>
+									<Giftcard>
 										<div className="flex w-full justify-between">
 											<Giftcard.MerchantLogo />
 											<Giftcard.Hashcode style={{ opacity: 0 }}>Hashcode</Giftcard.Hashcode>

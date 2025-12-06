@@ -11,6 +11,8 @@ import {
 	useState,
 } from "react"
 import { createPortal } from "react-dom"
+import { usePortalContainer } from "@/components/Viewport"
+import { useScale } from "@/lib/hooks/useScale"
 
 export const WaterRippleContext = createContext({ isAnimating: false })
 
@@ -352,25 +354,49 @@ interface WaterRippleExcludeProps {
 
 export function WaterRippleExclude({ children, className }: WaterRippleExcludeProps) {
 	const { isAnimating } = useContext(WaterRippleContext)
+	const portalContainer = usePortalContainer()
+	const { unscale } = useScale()
 	const originalRef = useRef<HTMLDivElement>(null)
-	const [fixedStyle, setFixedStyle] = useState<React.CSSProperties | null>(null)
+	const [portalStyle, setPortalStyle] = useState<React.CSSProperties | null>(null)
 	const portalLayoutId = useId()
 
 	useLayoutEffect(() => {
 		if (isAnimating && originalRef.current) {
 			const rect = originalRef.current.getBoundingClientRect()
-			setFixedStyle({
-				position: "fixed",
-				top: rect.top,
-				left: rect.left,
-				width: rect.width,
-				height: rect.height,
-				zIndex: 9999,
-			})
+
+			if (portalContainer) {
+				const containerRect = portalContainer.getBoundingClientRect()
+				// Position relative to the portal container
+				// Use unscale to convert viewport coordinates back to internal CSS coordinates
+				setPortalStyle({
+					position: "absolute",
+					top: unscale(rect.top - containerRect.top),
+					left: unscale(rect.left - containerRect.left),
+					width: unscale(rect.width),
+					height: unscale(rect.height),
+					zIndex: 9999,
+					pointerEvents: "auto",
+				})
+			} else {
+				// Fallback: use fixed positioning on document.body
+				// getBoundingClientRect returns viewport coordinates, so position: fixed works directly
+				setPortalStyle({
+					position: "fixed",
+					top: rect.top,
+					left: rect.left,
+					width: rect.width,
+					height: rect.height,
+					zIndex: 9999,
+					pointerEvents: "auto",
+				})
+			}
 		} else {
-			setFixedStyle(null)
+			setPortalStyle(null)
 		}
-	}, [isAnimating])
+	}, [isAnimating, portalContainer, unscale])
+
+	// Use portal container if available, otherwise fallback to document.body
+	const targetContainer = portalContainer ?? document.body
 
 	return (
 		<>
@@ -378,14 +404,14 @@ export function WaterRippleExclude({ children, className }: WaterRippleExcludePr
 				{children}
 			</div>
 			{isAnimating &&
-				fixedStyle &&
+				portalStyle &&
 				createPortal(
 					<LayoutGroup id={portalLayoutId}>
-						<div className={className} style={fixedStyle}>
+						<div className={className} style={portalStyle}>
 							{children}
 						</div>
 					</LayoutGroup>,
-					document.body
+					targetContainer
 				)}
 		</>
 	)
