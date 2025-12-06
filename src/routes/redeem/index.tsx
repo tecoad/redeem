@@ -3,7 +3,6 @@ import { motion, stagger, useAnimate } from "motion/react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/Button"
 import HowToDrawer from "@/components/Drawers/HowToDrawer"
-import DetailedView from "@/components/Giftcard/DetailedView"
 import Giftcard from "@/components/Giftcard/Giftcard"
 import Layout from "@/components/Layout"
 
@@ -81,7 +80,39 @@ function RouteComponent() {
 							}}
 						>
 							<Giftcard>
-								<DetailedView />
+								<div className="flex w-full justify-between">
+									<Giftcard.MerchantLogo />
+
+									<motion.div
+										data-hashcode-wrapper
+										className="absolute  w-full flex justify-end"
+										style={{
+											top: "50%",
+											right: "50%",
+											translateY: "-50%",
+											translateX: "50%",
+										}}
+									>
+										<Giftcard.Hashcode className="font-mono text-[#fafafa] text-lg">
+											2323 2323 2323 2323 2323
+										</Giftcard.Hashcode>
+									</motion.div>
+								</div>
+
+								<div className="flex w-full justify-between">
+									<Giftcard.Logo />
+
+									<Giftcard.Expiration>03/12/2025</Giftcard.Expiration>
+								</div>
+
+								{/* Balance - starts invisible */}
+								<Giftcard.Balance
+									style={{
+										opacity: 0,
+									}}
+								>
+									balance indicator
+								</Giftcard.Balance>
 							</Giftcard>
 						</motion.div>
 					</div>

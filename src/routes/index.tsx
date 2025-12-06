@@ -9,7 +9,6 @@ import {
 	useVelocity,
 } from "motion/react"
 import { useEffect, useRef, useState } from "react"
-import DefaultView from "@/components/Giftcard/DefaultView"
 import Giftcard from "@/components/Giftcard/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
@@ -32,9 +31,10 @@ function App() {
 	const [cardRef, cardBounds] = useUnscaledMeasure()
 	const [triggerKey, setTriggerKey] = useState(0)
 	const router = useRouter()
+	const [disableLayoutId, setDisableLayoutId] = useState(false)
 
 	// Motion blur for card entry animation
-	const entryY = useMotionValue(900)
+	const entryY = useMotionValue(800)
 	const entryVelocity = useVelocity(entryY)
 	const blurFilterRef = useRef<SVGFEGaussianBlurElement>(null)
 
@@ -93,6 +93,9 @@ function App() {
 				type: "spring",
 				stiffness: 400,
 				damping: 30,
+				onComplete: () => {
+					setDisableLayoutId(false)
+				},
 			})
 			if (snapToBottom) {
 				setTimeout(() => {
@@ -140,6 +143,7 @@ function App() {
 							drag="y"
 							ref={cardRef}
 							style={{ y, rotate }}
+							onDrag={() => setDisableLayoutId(true)}
 							onDragEnd={handleDragEnd}
 							dragTransition={{
 								bounceStiffness: 600,
@@ -170,8 +174,18 @@ function App() {
 								}}
 							>
 								<WaterRippleExclude>
-									<Giftcard>
-										<DefaultView />
+									<Giftcard layoutId={disableLayoutId ? undefined : "giftcard"}>
+										<div className="flex w-full justify-between">
+											<Giftcard.MerchantLogo />
+											<Giftcard.Hashcode style={{ opacity: 0 }}>Hashcode</Giftcard.Hashcode>
+										</div>
+
+										<div className="flex w-full justify-between">
+											<Giftcard.Logo />
+											<Giftcard.Expiration style={{ opacity: 0 }}>
+												exp 12/12/2025
+											</Giftcard.Expiration>
+										</div>
 									</Giftcard>
 								</WaterRippleExclude>
 							</motion.div>
