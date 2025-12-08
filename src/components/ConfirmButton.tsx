@@ -5,12 +5,12 @@ import { Button } from "./Buttons/Button"
 const INITIAL = 100
 
 export function ConfirmButton({
-	children = "Hold to confirm",
+	children,
 	className,
 	onSuccessConfirm,
 	duration = 1,
 }: {
-	children?: string
+	children: React.ReactNode
 	className?: string
 	onSuccessConfirm?: () => void
 	duration?: number

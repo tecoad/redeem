@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { IconCircleCheck3FillDuo18 } from "nucleo-ui-fill-duo-18"
 import { useState } from "react"
 import { Button } from "@/components/Buttons/Button"
+import { CheckIcon } from "@/components/CheckIcon"
 import SendReceiptDrawer from "@/components/Drawers/SendReceiptDrawer"
 import Heading from "@/components/Heading"
 import KeyValueList from "@/components/KeyValueList"
@@ -17,7 +17,7 @@ function RouteComponent() {
 		<>
 			<Layout>
 				<Heading>
-					<IconCircleCheck3FillDuo18 className="size-12 mb-5" />
+					<CheckIcon className="size-12 mb-5" />
 					<Heading.Title>Done</Heading.Title>
 					<Heading.Subtitle>Here is your receipt</Heading.Subtitle>
 				</Heading>
