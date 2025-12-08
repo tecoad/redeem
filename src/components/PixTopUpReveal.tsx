@@ -1,5 +1,5 @@
 import { Button } from "./Button"
-import Giftcard from "./Giftcard/Giftcard"
+import Giftcard from "./Giftcard"
 
 const PixTopUpReveal = () => {
 	return (

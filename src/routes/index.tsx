@@ -9,7 +9,7 @@ import {
 	useVelocity,
 } from "motion/react"
 import { useEffect, useRef, useState } from "react"
-import Giftcard from "@/components/Giftcard/Giftcard"
+import Giftcard from "@/components/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
 import WaterRippleEffect, { WaterRippleExclude } from "@/components/Shader"
@@ -170,17 +170,15 @@ function App() {
 							>
 								<WaterRippleExclude>
 									<Giftcard>
-										<div className="flex w-full justify-between">
-											<Giftcard.MerchantLogo />
-											<Giftcard.Hashcode style={{ opacity: 0 }}>Hashcode</Giftcard.Hashcode>
-										</div>
+										<Giftcard.ContentWrapper>
+											<div className="flex w-full justify-between">
+												<Giftcard.MerchantLogo />
+											</div>
 
-										<div className="flex w-full justify-between">
-											<Giftcard.Logo />
-											<Giftcard.Expiration style={{ opacity: 0 }}>
-												exp 12/12/2025
-											</Giftcard.Expiration>
-										</div>
+											<div className="flex items-end w-full justify-between">
+												<Giftcard.Logo />
+											</div>
+										</Giftcard.ContentWrapper>
 									</Giftcard>
 								</WaterRippleExclude>
 							</motion.div>
