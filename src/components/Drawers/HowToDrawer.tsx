@@ -1,4 +1,7 @@
 import { useMemo, useState } from "react"
+import { Bento1 } from "../Bento/Bento1"
+import { Bento2 } from "../Bento/Bento2"
+import { Bento3 } from "../Bento/Bento3"
 import { Button } from "../Button"
 import Drawer, { type DrawerProps } from "../Drawer"
 
@@ -29,8 +32,8 @@ function Step1View({ setView }: { setView: (view: View) => void }) {
 	return (
 		<>
 			<Drawer.Header>
-				<Drawer.Header.Fullbleed className="h-[220px] bg-[blue] flex items-center justify-center">
-					step 1
+				<Drawer.Header.Fullbleed className="flex items-center justify-center">
+					<Bento1 />
 				</Drawer.Header.Fullbleed>
 				<Drawer.Header.Title>Step 1</Drawer.Header.Title>
 				<Drawer.Header.Description>
@@ -51,7 +54,7 @@ function Step2View({ setView }: { setView: (view: View) => void }) {
 		<>
 			<Drawer.Header>
 				<Drawer.Header.Fullbleed>
-					<div className="w-full h-full bg-[red]">asdad</div>
+					<Bento2 />
 				</Drawer.Header.Fullbleed>
 				<Drawer.Header.Title>Step 2</Drawer.Header.Title>
 				<Drawer.Header.Description>
@@ -76,6 +79,9 @@ function Step3View({ setView }: { setView: (view: View) => void }) {
 	return (
 		<>
 			<Drawer.Header>
+				<Drawer.Header.Fullbleed>
+					<Bento3 />
+				</Drawer.Header.Fullbleed>
 				<Drawer.Header.Title>Step 3</Drawer.Header.Title>
 				<Drawer.Header.Description>
 					Instructions are simple and easy to follow.
