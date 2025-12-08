@@ -1,6 +1,6 @@
 import { useRouter } from "@tanstack/react-router"
 import { IconCircleDollarInFillDuo18 } from "nucleo-ui-fill-duo-18"
-import { Button } from "../Button"
+import { Button } from "../Buttons/Button"
 import Drawer, { type DrawerProps } from "../Drawer"
 import KeyValueList from "../KeyValueList"
 

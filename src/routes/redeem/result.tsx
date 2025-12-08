@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { IconCircleCheck3FillDuo18 } from "nucleo-ui-fill-duo-18"
 import { useState } from "react"
-import { Button } from "@/components/Button"
+import { Button } from "@/components/Buttons/Button"
 import SendReceiptDrawer from "@/components/Drawers/SendReceiptDrawer"
 import Heading from "@/components/Heading"
 import KeyValueList from "@/components/KeyValueList"

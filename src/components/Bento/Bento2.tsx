@@ -6,8 +6,6 @@ export const Bento2 = (props: IProps) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			width="400"
-			height="256"
 			fill="none"
 			className="Bento2"
 			viewBox="0 0 400 256"

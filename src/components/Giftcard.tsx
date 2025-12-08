@@ -122,8 +122,8 @@ function Expiration({
 	...props
 }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
-		<motion.div className={cn("flex text-white gap-0 flex-col ", className)} {...props}>
-			<motion.div className="overflow-hidden  text-[14px] uppercase font-medium">
+		<motion.div className={cn("flex text-white gap-0 flex-col h-full", className)} {...props}>
+			<motion.div className="overflow-hidden flex-1  text-[14px] uppercase font-medium">
 				<motion.div
 					variants={{
 						initial: { translateY: "-100%" },
@@ -139,7 +139,7 @@ function Expiration({
 					Expires on
 				</motion.div>
 			</motion.div>
-			<motion.div className="overflow-hidden text-[16px] font-semibold">
+			<motion.div className="overflow-hidden text-[16px] font-semibold h-7  flex items-center">
 				<motion.div
 					variants={{
 						initial: { translateY: "100%" },

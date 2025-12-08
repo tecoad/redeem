@@ -173,9 +173,6 @@ function App() {
 										<Giftcard.ContentWrapper>
 											<div className="flex w-full justify-between">
 												<Giftcard.MerchantLogo />
-											</div>
-
-											<div className="flex items-end w-full justify-between">
 												<Giftcard.Logo />
 											</div>
 										</Giftcard.ContentWrapper>

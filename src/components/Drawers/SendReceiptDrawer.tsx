@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { Button } from "../Button"
+import { Button } from "../Buttons/Button"
 import Drawer, { type DrawerProps } from "../Drawer"
 
 type View = "email" | "sent"

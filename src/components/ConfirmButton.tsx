@@ -1,6 +1,6 @@
 import { animate, motion, useMotionTemplate, useMotionValue } from "motion/react"
 import { cn } from "@/lib/utils"
-import { Button } from "./Button"
+import { Button } from "./Buttons/Button"
 
 const INITIAL = 100
 

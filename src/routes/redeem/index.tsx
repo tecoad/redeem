@@ -1,7 +1,7 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { motion, useAnimation } from "motion/react"
 import { useEffect, useState } from "react"
-import { Button } from "@/components/Button"
+import { Button } from "@/components/Buttons/Button"
 import HowToDrawer from "@/components/Drawers/HowToDrawer"
 import Giftcard from "@/components/Giftcard"
 import Layout from "@/components/Layout"
@@ -63,9 +63,13 @@ function RouteComponent() {
 						>
 							<Giftcard>
 								<Giftcard.ContentWrapper>
-									<div className="flex w-full justify-between">
+									<div className="flex w-full justify-between flex-1">
 										<Giftcard.MerchantLogo className="flex-1 " />
 
+										<Giftcard.Logo />
+									</div>
+
+									<div className="flex gap-8 flex-1">
 										<div className="flex items-center self-start overflow-hidden mix-blend-screen ">
 											<motion.div
 												variants={{
@@ -88,20 +92,6 @@ function RouteComponent() {
 												<Giftcard.Balance originalValue={100} availableValue={67} currency="$" />
 											</motion.div>
 										</div>
-									</div>
-
-									<Giftcard.Hashcode
-										initial="initial"
-										animate={hashControls}
-										onHoverStart={() => hashControls.start("visible")}
-										onHoverEnd={() => hashControls.start("hashed")}
-										className=" pointer-events-auto flex-1 flex items-center justify-center"
-									>
-										2323 2323 2323 2323 2323
-									</Giftcard.Hashcode>
-
-									<div className="flex w-full items-end justify-between relative flex-1">
-										<Giftcard.Logo className="self-end" />
 
 										<Giftcard.Expiration initial="initial" animate={expirationControls}>
 											{(() => {
@@ -113,6 +103,18 @@ function RouteComponent() {
 												return `${month}/${day}/${year}`
 											})()}
 										</Giftcard.Expiration>
+									</div>
+
+									<div className="flex w-full items-end justify-between relative flex-1">
+										<Giftcard.Hashcode
+											initial="initial"
+											animate={hashControls}
+											onHoverStart={() => hashControls.start("visible")}
+											onHoverEnd={() => hashControls.start("hashed")}
+											className=" pointer-events-auto"
+										>
+											2323 2323 2323 2323 2323
+										</Giftcard.Hashcode>
 									</div>
 								</Giftcard.ContentWrapper>
 							</Giftcard>

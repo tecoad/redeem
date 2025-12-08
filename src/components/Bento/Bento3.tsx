@@ -6,8 +6,6 @@ export const Bento3 = (props: IProps) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			width="400"
-			height="256"
 			fill="none"
 			className="Bento3"
 			viewBox="0 0 400 256"
@@ -33,11 +31,11 @@ export const Bento3 = (props: IProps) => {
 				<path d="M72.337 135.723a4.26 4.26 0 0 1-3.027-1.254l-4.371-4.371a.83.83 0 0 0-1.149 0l-4.387 4.387a4.26 4.26 0 0 1-3.027 1.253h-.861l5.535 5.536a4.427 4.427 0 0 0 6.261 0l5.552-5.551zm-15.961-15.462c1.143 0 2.218.446 3.027 1.254l4.387 4.388a.813.813 0 0 0 1.149-.001l4.37-4.371a4.26 4.26 0 0 1 3.028-1.254h.526l-5.552-5.551a4.427 4.427 0 0 0-6.26 0l-5.536 5.535z" />
 				<path d="m77.455 124.87-3.355-3.355a.7.7 0 0 1-.238.048h-1.525c-.789 0-1.56.319-2.118.877l-4.371 4.371a2.1 2.1 0 0 1-1.483.614 2.1 2.1 0 0 1-1.484-.613l-4.387-4.388a3.02 3.02 0 0 0-2.118-.877H54.5a.6.6 0 0 1-.225-.046l-3.368 3.369a4.427 4.427 0 0 0 0 6.261l3.368 3.368a.6.6 0 0 1 .225-.046h1.876c.788 0 1.56-.319 2.118-.877l4.387-4.387c.793-.792 2.175-.793 2.967 0l4.371 4.371c.557.558 1.33.877 2.118.877h1.525a.7.7 0 0 1 .238.048l3.355-3.354a4.427 4.427 0 0 0 0-6.261" />
 			</g>
-			<g className="line-effects" strokeLinecap="round" strokeWidth="2">
-				<path stroke="url(#paint0_linear_3806_1604)" d="M52.21 160.561h298.471" />
-				<path stroke="#28D358" d="M65.181 166.561h272.53" opacity=".65" />
-				<path stroke="#28D358" d="M78.153 172.561h246.586" opacity=".35" />
-				<path stroke="#28D358" d="M91.125 178.561h220.642" opacity=".15" />
+			<g className="line-effects" strokeLinecap="round" strokeWidth="3">
+				<path stroke="#28D358" d="M91.625 182.061h219.642" opacity=".15" />
+				<path stroke="#28D358" d="M78.653 174.727h245.586" opacity=".35" />
+				<path stroke="#28D358" d="M65.681 167.394h271.53" opacity=".65" />
+				<path stroke="url(#paint0_linear_3806_1604)" d="M52.71 160.061h297.471" />
 			</g>
 			<g
 				stroke="#28D358"
@@ -62,6 +60,25 @@ export const Bento3 = (props: IProps) => {
 				<path d="M345.059 124.516v9.256a2.847 2.847 0 0 1-2.847 2.848h-10.68" />
 				<path d="M337.94 132.348h-9.256a2.85 2.85 0 0 1-2.848-2.848v-7.832a2.847 2.847 0 0 1 2.848-2.848h9.256a2.847 2.847 0 0 1 2.848 2.848v7.832a2.85 2.85 0 0 1-2.848 2.848" />
 			</g>
+
+			<defs>
+				<linearGradient
+					id="paint0_linear_3806_1604"
+					x1={51.21}
+					x2={351.681}
+					y1={162.061}
+					y2={162.061}
+					gradientUnits="userSpaceOnUse"
+				>
+					<stop stopColor="#28D358" />
+					<stop offset={0.333} stopColor="#28D358" stopOpacity={0.4} />
+					<stop offset={0.667} stopColor="#28D358" />
+					<stop offset={1} stopColor="#28D358" stopOpacity={0.4} />
+				</linearGradient>
+				<clipPath id="a">
+					<path fill="#fff" d="M0 0h400v256H0z" />
+				</clipPath>
+			</defs>
 		</svg>
 	)
 }

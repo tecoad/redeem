@@ -30,9 +30,9 @@
 	--text-body--letter-spacing: -0.025rem;
 	--text-body--font-weight: 500;
 
-	--text-caption: 13px;
-	--text-caption--line-height: 18px;
-	--text-caption--letter-spacing: -0.008px;
+	--text-caption: 0.8rem;
+	--text-caption--line-height: 0.96rem;
+	--text-caption--letter-spacing: -0.008rem;
 	--text-caption--font-weight: 500;
 
 	--radius-sm: calc(var(--radius) - 4px);

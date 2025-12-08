@@ -8,7 +8,7 @@ type ValidTo = FileRouteTypes["to"]
 function Root({ className, ...props }: ComponentPropsWithoutRef<"div">) {
 	return (
 		<div
-			className={cn("flex items-center gap-1 border w-full justify-center h-10", className)}
+			className={cn("flex items-center gap-1 w-full justify-center h-10", className)}
 			{...props}
 		/>
 	)

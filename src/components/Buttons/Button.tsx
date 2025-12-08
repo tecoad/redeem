@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import type * as React from "react"
 
@@ -19,38 +18,44 @@ const buttonVariants = cva(
 				medium: "h-[34px] px-[14px] py-[7px] has-[>svg]:px-[7px] text-[15px]",
 				large: "h-[50px] px-[20px] py-[14px] has-[>svg]:px-[14px] text-[17px]",
 			},
-			icon: {
-				true: "aspect-square w-auto",
+			// icon: {
+			// 	true: "aspect-square w-auto",
+			// },
+			state: {
+				idle: "",
+				pending: "opacity-90 cursor-wait",
+				success: "bg-green-500 text-white border-green-600",
+				error: "bg-red-500 text-white border-red-600",
 			},
 		},
 		defaultVariants: {
 			variant: "filled",
 			size: "large",
-			icon: false,
+			// icon: false,
+			state: "idle",
 		},
 	}
 )
 
-function Button({
+export type ButtonProps<T extends React.ElementType = "button"> = {
+	className?: string
+	as?: T
+} & VariantProps<typeof buttonVariants> &
+	Omit<React.ComponentPropsWithoutRef<T>, "className" | "as">
+
+function Button<T extends React.ElementType = "button">({
 	className,
+	as,
 	variant,
 	size,
-	asChild = false,
 	...props
-}: React.ComponentProps<"button"> &
-	VariantProps<typeof buttonVariants> & {
-		asChild?: boolean
-	}) {
-	const Comp = asChild ? Slot : "button"
-
-	return (
-		<Comp
-			data-vaul-no-drag=""
-			data-slot="button"
-			className={cn(buttonVariants({ variant, size, className }))}
-			{...props}
-		/>
-	)
+}: ButtonProps<T>) {
+	const Component = as || "button"
+	return <Component className={cn(buttonVariants({ variant, size, className }))} {...props} />
 }
 
-export { Button, buttonVariants }
+type ButtonVariantProps = VariantProps<typeof buttonVariants>
+
+type ButtonStates = NonNullable<ButtonVariantProps["state"]>
+
+export { Button, buttonVariants, type ButtonVariantProps, type ButtonStates }
