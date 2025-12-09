@@ -169,9 +169,10 @@ export default function SvgBorder({
 						fill="none"
 						stroke="currentColor"
 						strokeWidth={strokeWidth}
+						strokeLinecap="round"
 						vectorEffect="non-scaling-stroke"
 						style={{ opacity: dashOpacity }}
-						strokeDasharray="20 10"
+						strokeDasharray="0.1 10"
 						animate={{
 							strokeDashoffset: [0, -300],
 						}}

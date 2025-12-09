@@ -16,12 +16,12 @@ function RouteComponent() {
 	return (
 		<>
 			<Layout>
-				<Heading>
+				<Heading className="mt-15">
 					<CheckIcon className="size-12 mb-5" />
 					<Heading.Title>Done</Heading.Title>
 					<Heading.Subtitle>Here is your receipt</Heading.Subtitle>
 				</Heading>
-				<div className="w-full px-6">
+				<div className="w-full px-4 py-10">
 					<KeyValueList
 						items={[
 							{ key: "Transaction ID", value: "1234567890" },
@@ -32,7 +32,7 @@ function RouteComponent() {
 					/>
 				</div>
 				<div className="w-full break-all">
-					<div>Authorization code</div>
+					<div className="text-muted-foreground font-semibold">Authorization code</div>
 					<div>F646B96B450AA8A4D79A84A3FD34EC20EE5520</div>
 				</div>
 				<Layout.Footer>

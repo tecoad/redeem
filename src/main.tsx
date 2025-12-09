@@ -10,7 +10,7 @@ const router = createRouter({
 	routeTree,
 	context: {},
 	defaultPreload: "intent",
-	defaultViewTransition: true,
+	defaultViewTransition: false,
 	scrollRestoration: true,
 	defaultStructuralSharing: true,
 	defaultPreloadStaleTime: 0,

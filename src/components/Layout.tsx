@@ -15,7 +15,7 @@ const Root = forwardRef<HTMLDivElement, RootProps>(({ children, className, as, .
 		<Component
 			ref={ref}
 			className={cn(
-				"p-4 flex gap-4 w-full h-full items-start justify-between flex-col transition-transform duration-200",
+				"p-4 flex gap-6 w-full h-full items-start flex-col transition-transform ease-out duration-150",
 				isDrawerOpen ? "scale-90" : "scale-100",
 				className
 			)}
@@ -47,7 +47,10 @@ function Footer<T extends React.ElementType = "div">({
 	const Component = as || "div"
 	return (
 		<Component
-			className={cn("self-stretch flex items-center justify-center flex-col gap-2", className)}
+			className={cn(
+				"self-stretch flex items-center justify-center flex-col gap-2 mt-auto",
+				className
+			)}
 			{...props}
 		>
 			{children}

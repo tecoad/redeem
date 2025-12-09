@@ -9,13 +9,13 @@ import {
 	useVelocity,
 } from "motion/react"
 import { useEffect, useRef, useState } from "react"
+import { TextRoll } from "@/components/_TextRoll"
 import Giftcard from "@/components/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
 import WaterRippleEffect, { WaterRippleExclude } from "@/components/Shader"
 import SVGBorder, { type BorderMode } from "@/components/SvgBorder"
 import { TextEffect } from "@/components/TextEffect"
-import { TextRoll } from "@/components/TextRoll"
 import { TextShimmer } from "@/components/TextShimmer"
 import { useUnscaledMeasure } from "@/lib/hooks/useScale"
 import { cn } from "@/lib/utils"
@@ -122,7 +122,7 @@ function App() {
 					y: 0.95,
 				}}
 				onComplete={() => {
-					router.navigate({ to: "/redeem" })
+					router.navigate({ to: "/redeem", viewTransition: true })
 				}}
 				frequency={40}
 				amplitude={0.08}
@@ -169,7 +169,7 @@ function App() {
 								}}
 							>
 								<WaterRippleExclude>
-									<Giftcard>
+									<Giftcard className="pointer-events-auto">
 										<Giftcard.ContentWrapper>
 											<div className="flex w-full justify-between">
 												<Giftcard.MerchantLogo />
@@ -203,7 +203,9 @@ function App() {
 							{cardBounds.width && (
 								<SVGBorder
 									mode={borderMode}
+									// mode="dash"
 									borderRadius={29.5}
+									strokeWidth={5}
 									className={cn(
 										"text-muted-foreground/10 absolute inset-0 pointer-events-none",
 										borderMode === "dash" && "text-primary"
@@ -276,7 +278,13 @@ function App() {
 									<TextRoll
 										className="inline"
 										activeClassName="text-primary"
-										duration={0.5}
+										duration={0.9}
+										getEnterDelay={i => i * 0.06}
+										getExitDelay={i => i * 0.06 + 0.09}
+										transition={{
+											type: "spring",
+											ease: "easeOut",
+										}}
 										trigger={borderMode === "dash"}
 										oneWay
 									>

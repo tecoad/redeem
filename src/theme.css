@@ -10,17 +10,17 @@
 
 	--text-\*: initial;
 
-	--text-large-title: 2rem;
-	--text-large-title--line-height: 2.412rem;
-	--text-large-title--letter-spacing: 0.024rem;
+	--text-large-title: 1.8rem;
+	--text-large-title--line-height: 2.4rem;
+	--text-large-title--letter-spacing: -0.024rem;
 	--text-large-title--font-weight: 600;
 
-	--text-title1: 1.647rem;
-	--text-title1--line-height: 2rem;
-	--text-title1--letter-spacing: 0.022rem;
+	--text-title1: 1.5rem;
+	--text-title1--line-height: 1.9rem;
+	--text-title1--letter-spacing: -0.015rem;
 	--text-title1--font-weight: 500;
 
-	--text-title2: 1.294rem;
+	--text-title2: 1.2rem;
 	--text-title2--line-height: 1.647rem;
 	--text-title2--letter-spacing: -0.015rem;
 	--text-title2--font-weight: 500;
@@ -30,8 +30,8 @@
 	--text-body--letter-spacing: -0.025rem;
 	--text-body--font-weight: 500;
 
-	--text-caption: 0.8rem;
-	--text-caption--line-height: 0.96rem;
+	--text-caption: 0.9rem;
+	--text-caption--line-height: 1.1rem;
 	--text-caption--letter-spacing: -0.008rem;
 	--text-caption--font-weight: 500;
 
@@ -64,13 +64,13 @@
 	--radius: 0.625rem;
 
 	--background: oklch(1 0 0);
-	--foreground: oklch(0.141 0.005 48);
+	--foreground: oklch(0.234 0.006 16.27);
 	--drawer: oklch(1 0 0);
 	--drawer-foreground: oklch(0.141 0.005 285.823);
-	--primary: oklch(0.6321 0.2018 254.09);
-	--primary-foreground: oklch(0.98 0.016 48);
-	--muted: oklch(0.967 0.001 48);
-	--muted-foreground: oklch(0.6 0.016 48);
+	--primary: oklch(0.7595 0.2124 147.3);
+	--primary-foreground: oklch(0.9739 0.0011 17.18);
+	--muted: oklch(0.9739 0.0011 17.18);
+	--muted-foreground: oklch(0.495 0.003 16);
 	--accent: oklch(0.967 0.001 48);
 	--accent-foreground: oklch(0.21 0.006 48);
 	--border: oklch(0.9 0.005 48);

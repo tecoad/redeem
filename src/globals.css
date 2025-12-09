@@ -25,6 +25,15 @@
 	}
 }
 
+@utility no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
 @theme {
 	--aspect-iphone-16: 0.461;
 	--aspect-golden: 1.618;

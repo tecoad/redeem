@@ -6,7 +6,7 @@ import {
 } from "nucleo-ui-fill-duo-18"
 import { useState } from "react"
 import { Button, type ButtonStates } from "@/components/Buttons/Button"
-import { MorphButton } from "@/components/Buttons/MorphButton"
+import { SlideXButton } from "@/components/Buttons/SlideXButton"
 import ConfirmationDrawer from "@/components/Drawers/ConfirmationDrawer"
 import TopupDrawer from "@/components/Drawers/TopupDrawer"
 import Giftcard from "@/components/Giftcard"
@@ -28,6 +28,7 @@ function RouteComponent() {
 
 	const [state, setState] = useState<ButtonStates>("idle")
 	const [canUserProceed, setCanUserProceed] = useState(false)
+	const [clickCount, setClickCount] = useState(0)
 
 	const handleOpenDrawer = () => {
 		const next = lastOpened === "topup" ? "confirmation" : "topup"
@@ -61,17 +62,27 @@ function RouteComponent() {
 							canUserProceed && "bg-success"
 						)}
 					>
-						<MorphButton
+						<SlideXButton
 							onClick={() => {
 								// change to pending
 								setState("pending")
 
-								// after 2 seconds change aleatory to sucess or error
+								// after 2 seconds change based on click count
 								setTimeout(() => {
-									const finalStates: ButtonStates[] = ["success", "error"]
-									const randomState = finalStates[Math.floor(Math.random() * finalStates.length)]
-									setCanUserProceed(randomState === "success")
-									setState(randomState)
+									// First click: error, second click: success, then alternate
+									let resultState: ButtonStates
+									if (clickCount === 0) {
+										resultState = "error"
+									} else if (clickCount === 1) {
+										resultState = "success"
+									} else {
+										// Alternate between success and error
+										resultState = clickCount % 2 === 0 ? "error" : "success"
+									}
+
+									setCanUserProceed(resultState === "success")
+									setState(resultState)
+									setClickCount(prev => prev + 1)
 
 									setTimeout(() => {
 										setState("idle")
@@ -85,7 +96,7 @@ function RouteComponent() {
 							state={state}
 						>
 							{LABEL[state ?? "idle"]}
-						</MorphButton>
+						</SlideXButton>
 					</Giftcard>
 					<Button variant="ghost" className="w-auto" size="medium">
 						<IconQrcodeFillDuo18 className="size-5" /> Read qrcode

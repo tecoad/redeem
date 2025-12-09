@@ -75,11 +75,11 @@ export function TextRoll({
 					<span
 						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 						key={i}
-						className="relative inline-block [perspective:10000px] [transform-style:preserve-3d] [width:auto]"
+						className="relative inline-block perspective-[10000px] transform-3d w-auto"
 						aria-hidden="true"
 					>
 						<motion.span
-							className="absolute inline-block [backface-visibility:hidden] [transform-origin:50%_25%]"
+							className="absolute inline-block backface-hidden origin-[50%_25%]"
 							initial={variants?.enter?.initial ?? defaultVariants.enter.initial}
 							animate={
 								trigger
@@ -96,7 +96,7 @@ export function TextRoll({
 						</motion.span>
 						<motion.span
 							className={cn(
-								"absolute inline-block [backface-visibility:hidden] [transform-origin:50%_100%]",
+								"absolute inline-block backface-hidden origin-[50%_100%]",
 								activeClassName
 							)}
 							initial={variants?.exit?.initial ?? defaultVariants.exit.initial}

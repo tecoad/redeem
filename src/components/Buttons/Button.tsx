@@ -4,12 +4,12 @@ import type * as React from "react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-	"flex w-full items-center justify-center gap-2 whitespace-nowrap  text-lg font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-full",
+	"flex w-full items-center justify-center gap-2 whitespace-nowrap  text-lg font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-full ease-in-out duration-300",
 	{
 		variants: {
 			variant: {
-				filled: "bg-primary text-primary-foreground hover:bg-primary/90",
-				tinted: "bg-primary/10 text-primary hover:bg-primary/20",
+				default: "bg-foreground text-background hover:bg-foreground/80",
+				primary: "bg-primary text-primary-foreground hover:bg-primary/90",
 				neutral: "bg-muted text-muted-foreground hover:bg-muted/80",
 				ghost: "bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
 			},
@@ -29,7 +29,7 @@ const buttonVariants = cva(
 			},
 		},
 		defaultVariants: {
-			variant: "filled",
+			variant: "default",
 			size: "large",
 			// icon: false,
 			state: "idle",

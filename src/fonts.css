@@ -1,10 +1,10 @@
 @theme inline {
-	--font-sans: "SF Pro Display", system-ui;
-	/* --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11"; */
-	/* --font-display: "Haffer", system-ui; */
+	--font-sans: "InterVariable", system-ui;
+	--font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+	--font-display: "FTRegolaNeue", system-ui;
 }
 
-/* @font-face {
+@font-face {
 	font-family: "InterVariable";
 	src:
 		url("/fonts/InterVariable.woff2") format("woff2-variations"),
@@ -12,46 +12,36 @@
 	font-display: block;
 	font-style: normal;
 	font-weight: 100 900;
-} */
+}
 
 @font-face {
-	font-family: "SF Pro Display";
+	font-family: "FTRegolaNeue";
+	src: url("/fonts/FTRegolaNeue-Regular.otf") format("opentype");
+	font-display: block;
 	font-style: normal;
 	font-weight: 400;
-	src:
-		local("SF Pro Display"),
-		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYREGULAR.woff") format("woff");
 }
 
 @font-face {
-	font-family: "SF Pro Display";
+	font-family: "FTRegolaNeue";
+	src: url("/fonts/FTRegolaNeue-Medium.otf") format("opentype");
+	font-display: block;
 	font-style: normal;
 	font-weight: 500;
-	src:
-		local("SF Pro Display"),
-		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYMEDIUM.woff") format("woff");
 }
+
 @font-face {
-	font-family: "SF Pro Display";
-	font-style: italic;
+	font-family: "FTRegolaNeue";
+	src: url("/fonts/FTRegolaNeue-SemiBold.otf") format("opentype");
+	font-display: block;
+	font-style: normal;
 	font-weight: 600;
-	src:
-		local("SF Pro Display"),
-		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYSEMIBOLDITALIC.woff") format("woff");
 }
+
 @font-face {
-	font-family: "SF Pro Display";
+	font-family: "FTRegolaNeue";
+	src: url("/fonts/FTRegolaNeue-Bold.otf") format("opentype");
+	font-display: block;
 	font-style: normal;
 	font-weight: 700;
-	src:
-		local("SF Pro Display"),
-		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYBOLD.woff") format("woff");
-}
-@font-face {
-	font-family: "SF Pro Display";
-	font-style: italic;
-	font-weight: 800;
-	src:
-		local("SF Pro Display"),
-		url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYHEAVYITALIC.woff") format("woff");
 }

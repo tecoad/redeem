@@ -5,6 +5,7 @@ import { GifterLogo, WineLogo } from "./Logos"
 
 function Root({ className, children, ...props }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
+		// <GlareCard className="contents">
 		<motion.div
 			className={cn(
 				"w-full aspect-card flex pointer-events-none select-none  rounded-[24px] bg-[#48B69C] relative overflow-hidden",
@@ -15,6 +16,7 @@ function Root({ className, children, ...props }: { className?: string } & HTMLMo
 		>
 			{children}
 		</motion.div>
+		// </GlareCard>
 	)
 }
 
@@ -126,14 +128,8 @@ function Expiration({
 			<motion.div className="overflow-hidden flex-1  text-[14px] uppercase font-medium">
 				<motion.div
 					variants={{
-						initial: { translateY: "-100%" },
-						final: { translateY: "0%" },
-					}}
-					transition={{
-						duration: 0.2,
-						type: "spring",
-						stiffness: 100,
-						damping: 10,
+						hidden: { translateY: "-100%" },
+						visible: { translateY: "0%" },
 					}}
 				>
 					Expires on
@@ -142,14 +138,8 @@ function Expiration({
 			<motion.div className="overflow-hidden text-[16px] font-semibold h-7  flex items-center">
 				<motion.div
 					variants={{
-						initial: { translateY: "100%" },
-						final: { translateY: "0%" },
-					}}
-					transition={{
-						duration: 0.2,
-						type: "spring",
-						stiffness: 100,
-						damping: 10,
+						hidden: { translateY: "100%" },
+						visible: { translateY: "0%" },
 					}}
 				>
 					{children}
@@ -180,18 +170,22 @@ function Balance({
 			initial="available"
 			whileHover="original"
 			className={cn("flex flex-col gap-0.5 pointer-events-auto", className)}
-			transition={{
-				type: "spring",
-				stiffness: 200,
-				damping: 50,
-			}}
 			{...props}
 		>
-			<div className="text-white overflow-hidden text-[14px] uppercase font-medium grid">
+			<motion.div
+				variants={{
+					visible: { translateY: "0%" },
+					hidden: { translateY: "-100%" },
+				}}
+				className="text-white overflow-hidden text-[14px] uppercase font-medium grid"
+			>
 				<motion.div
 					variants={{
 						available: { translateY: "0%" },
 						original: { translateY: "-100%" },
+					}}
+					style={{
+						translateY: "0%",
 					}}
 					className="[grid-area:1/1]"
 				>
@@ -203,12 +197,19 @@ function Balance({
 						original: { translateY: "0%" },
 					}}
 					className="[grid-area:1/1]"
+					style={{
+						translateY: "100%",
+					}}
 				>
 					Initial Balance
 				</motion.div>
-			</div>
+			</motion.div>
 
 			<motion.div
+				variants={{
+					hidden: { translateY: "100%" },
+					visible: { translateY: "0%" },
+				}}
 				className={cn("flex text-[16px] group tracking-tight font-semibold h-7 items-center")}
 			>
 				<div className="aspect-square h-full font-semibold tracking-tight align-super bg-white rounded-l-sm p-1.5 ">
@@ -224,6 +225,7 @@ function Balance({
 
 					<motion.div
 						className=" bg-white absolute inset-0  flex items-center justify-start"
+						style={{ clipPath: "inset(0 25px 0 0)" }}
 						variants={{
 							available: { clipPath: "inset(0 25px 0 0)" },
 							original: { clipPath: "inset(0 100% 0 0)" },
@@ -233,6 +235,10 @@ function Balance({
 					</motion.div>
 					<motion.div
 						className=" absolute overflow-hidden inset-0 flex items-center justify-end text-white bg-[url(/lightshade.svg)] bg-contain bg-repeat-x"
+						style={{
+							clipPath: "inset(0 0 0 calc(100% - 25px))",
+							maskImage: "linear-gradient(to right, transparent calc(100% - 25px), black 90%)",
+						}}
 						variants={{
 							available: {
 								clipPath: "inset(0 0 0 calc(100% - 25px))",
