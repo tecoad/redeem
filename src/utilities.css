@@ -1,0 +1,36 @@
+@utility highlight-* {
+    --alpha: calc(--modifier(integer) * 1%);
+    box-shadow: inset 0 1px 0 0 --alpha(--value(--color-*, [color])/var(--alpha, 100%));
+}
+
+@utility gloss-* {
+    --alpha: 100%;
+    --alpha: calc(--modifier(integer) * 1%);
+
+    position: relative;
+  
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border-radius: inherit;
+        box-sizing: border-box;
+        background:
+        linear-gradient(
+          120deg,
+          color-mix(in srgb, --value(--color-*, [color]) var(--alpha), transparent) 0%,
+          color-mix(in srgb, --value(--color-*, [color]) calc(var(--alpha) * 0.0), transparent) 25%,
+          color-mix(in srgb, --value(--color-*, [color]) calc(var(--alpha) * 0.0), transparent) 75%,
+          color-mix(in srgb, --value(--color-*, [color]) calc(var(--alpha) * .25), transparent) 100%
+        )
+        border-box;
+
+        border: 1px solid transparent;
+        mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
+        mask-composite: exclude;
+        -webkit-mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+    }
+}

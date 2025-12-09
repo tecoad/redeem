@@ -2,7 +2,9 @@
 @import "tw-animate-css";
 @import "./theme.css";
 @import "./fonts.css";
+@import "./utilities.css";
 @plugin "@toolwind/corner-shape";
+@plugin "tailwindcss-fade";
 
 @custom-variant dark (&:is(.dark *));
 

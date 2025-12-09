@@ -67,7 +67,9 @@ function Step2View({ setView }: { setView: (view: View) => void }) {
 			</Drawer.Header>
 
 			<Drawer.Footer>
-				<Button onClick={() => setView("step1")}>Back</Button>
+				<Button variant="outline" onClick={() => setView("step1")}>
+					Back
+				</Button>
 				<Button onClick={() => setView("step3")}>Continue</Button>
 			</Drawer.Footer>
 		</>
@@ -88,7 +90,9 @@ function Step3View({ setView }: { setView: (view: View) => void }) {
 				</Drawer.Header.Description>
 			</Drawer.Header>
 			<Drawer.Footer>
-				<Button onClick={() => setView("step2")}>Back</Button>
+				<Button variant="outline" onClick={() => setView("step2")}>
+					Back
+				</Button>
 				<Drawer.Close asChild>
 					<Button>Close</Button>
 				</Drawer.Close>

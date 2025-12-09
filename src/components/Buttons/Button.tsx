@@ -9,6 +9,7 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				default: "bg-foreground text-background hover:bg-foreground/80",
+				outline: "",
 				primary: "bg-primary text-primary-foreground hover:bg-primary/90",
 				neutral: "bg-muted text-muted-foreground hover:bg-muted/80",
 				ghost: "bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
@@ -59,3 +60,7 @@ type ButtonVariantProps = VariantProps<typeof buttonVariants>
 type ButtonStates = NonNullable<ButtonVariantProps["state"]>
 
 export { Button, buttonVariants, type ButtonVariantProps, type ButtonStates }
+
+{
+	/* <button class="group relative h-12 overflow-hidden rounded-md bg-blue-500 px-6 text-neutral-50 transition hover:bg-blue-600"><span class="relative">Hover me</span><div class="animate-shine-infinite absolute inset-0 -top-[20px] flex h-[calc(100%+40px)] w-full justify-center blur-[12px]"><div class="relative h-full w-8 bg-white/30"></div></div></button> */
+}
