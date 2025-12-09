@@ -39,7 +39,6 @@ export function ConfirmButton({
 
 	return (
 		<Button
-			variant="filled"
 			className={cn(
 				"overflow-hidden whitespace-nowrap relative  hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 bg-success hover:bg-muted-foreground",
 				className
