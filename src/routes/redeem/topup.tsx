@@ -17,8 +17,8 @@ export const Route = createFileRoute("/redeem/topup")({
 function RouteComponent() {
 	const router = useRouter()
 	const [timeRemaining, setTimeRemaining] = useState(15 * 60)
-	const [hasConfirmedPayment, setHasConfirmedPayment] = useState(false)
-	const [copied, setCopied] = useState(false)
+	const [_hasConfirmedPayment, _setHasConfirmedPayment] = useState(false)
+	const [_copied, setCopied] = useState(false)
 
 	const pixCode =
 		"00020101021226780014br.gov.bcb.pix2556pix.ebanx.com/qr/v2/7F646B96B450AA8A4D79A84A3FD34EC20EE55204000053039865802BR5905EBANX6008CURITIBA62070503***63040C96"
