@@ -8,6 +8,19 @@ const buttonVariants = cva(
 	{
 		variants: {
 			variant: {
+				"soft-frosted": `
+					relative isolate !rounded-[17px] 
+					shadow-[0_20px_32px_rgba(41,152,238,0.08)] 
+					text-[#3A75B5] font-medium transition 
+					hover:brightness-105
+					before:absolute before:inset-0 before:rounded-[17px] 
+					before:bg-gradient-to-b before:from-[#D6E8F9] before:to-[#A5C7ED] 
+					before:-z-10 before:content-['']
+					after:absolute after:inset-[1px] after:rounded-[16px] 
+					after:bg-gradient-to-b after:from-[#DBEAF9] after:to-[#EDF6FF] 
+					after:shadow-[inset_0_3px_3px_rgba(255,255,255,0.25),inset_0_3px_8px_rgba(255,255,255,1)] 
+					after:-z-[1] after:content-['']
+				`,
 				default: "bg-foreground text-background hover:bg-foreground/80",
 				outline: "",
 				primary: "bg-primary text-primary-foreground hover:bg-primary/90",

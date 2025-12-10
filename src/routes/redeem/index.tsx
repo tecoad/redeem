@@ -2,6 +2,7 @@ import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { MotionConfig, motion, useAnimation } from "motion/react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/Buttons/Button"
+import { Button as ButtonV3 } from "@/components/Buttons/ButtonV3"
 import HowToDrawer from "@/components/Drawers/HowToDrawer"
 import Giftcard from "@/components/Giftcard"
 import Layout from "@/components/Layout"
@@ -103,10 +104,25 @@ function RouteComponent() {
 						animate={footerControls}
 					>
 						<div className="overflow-hidden w-full flex items-center justify-center flex-col gap-2">
+							<div className="absolute w-full h-full bg-[#ececec] flex items-center justify-center top-0 flex-col gap-6 z-50">
+								<ButtonV3 size="lg" variant="primary">
+									Primary bigger button
+								</ButtonV3>
+								<ButtonV3 size="lg" variant="muted">
+									Muted
+								</ButtonV3>
+								<ButtonV3 size="lg" variant="outline">
+									Outline
+								</ButtonV3>
+
+								<ButtonV3 size="lg" variant="ghost">
+									Ghost
+								</ButtonV3>
+							</div>
 							<Button
-								size="medium"
+								// size="medium"
 								className="w-auto"
-								variant="ghost"
+								variant="soft-frosted"
 								onClick={() => setDrawerOpen(true)}
 							>
 								How to redeem?
