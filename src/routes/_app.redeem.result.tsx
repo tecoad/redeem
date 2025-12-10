@@ -7,7 +7,7 @@ import Heading from "@/components/Heading"
 import KeyValueList from "@/components/KeyValueList"
 import Layout from "@/components/Layout"
 
-export const Route = createFileRoute("/redeem/result")({
+export const Route = createFileRoute("/_app/redeem/result")({
 	component: RouteComponent,
 })
 

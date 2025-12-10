@@ -2,6 +2,7 @@
 	--font-sans: "InterVariable", system-ui;
 	--font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 	--font-display: "FTRegolaNeue", system-ui;
+	--font-mono: "PPSupplyMono", system-ui;
 }
 
 @font-face {
@@ -14,13 +15,13 @@
 	font-weight: 100 900;
 }
 
-@font-face {
+/* @font-face {
 	font-family: "FTRegolaNeue";
 	src: url("/fonts/FTRegolaNeue-Regular.otf") format("opentype");
 	font-display: block;
 	font-style: normal;
 	font-weight: 400;
-}
+} */
 
 @font-face {
 	font-family: "FTRegolaNeue";
@@ -38,10 +39,26 @@
 	font-weight: 600;
 }
 
-@font-face {
+/* @font-face {
 	font-family: "FTRegolaNeue";
 	src: url("/fonts/FTRegolaNeue-Bold.otf") format("opentype");
 	font-display: block;
 	font-style: normal;
 	font-weight: 700;
+} */
+
+@font-face {
+	font-family: "PPSupplyMono";
+	src: url("/fonts/PPSupplyMono-Regular.otf") format("opentype");
+	font-display: block;
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "PPSupplyMono";
+	src: url("/fonts/PPSupplyMono-Ultralight.otf") format("opentype");
+	font-display: block;
+	font-style: normal;
+	font-weight: 300;
 }

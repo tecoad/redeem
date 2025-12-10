@@ -16,7 +16,7 @@ function Title<T extends React.ElementType = "h1">({
 	const Component = as || "h1"
 	return (
 		<Component
-			className={cn("text-large-title font-bold font-display text-foreground", className)}
+			className={cn("text-2xl font-semibold font-display text-foreground", className)}
 			{...props}
 		/>
 	)
@@ -32,10 +32,7 @@ function Subtitle<T extends React.ElementType = "h2">({
 } & Omit<React.ComponentPropsWithoutRef<T>, "className" | "as">) {
 	const Component = as || "h2"
 	return (
-		<Component
-			className={cn("text-title1 font-display text-muted-foreground", className)}
-			{...props}
-		/>
+		<Component className={cn("text-xl font-display text-muted-foreground", className)} {...props} />
 	)
 }
 

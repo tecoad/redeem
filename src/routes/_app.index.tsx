@@ -20,7 +20,7 @@ import { TextShimmer } from "@/components/TextShimmer"
 import { useUnscaledMeasure } from "@/lib/hooks/useScale"
 import { cn } from "@/lib/utils"
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_app/")({
 	component: App,
 })
 
@@ -225,7 +225,7 @@ function App() {
 								style={{ clipPath: clipPath1 }}
 								className="text-center  z-10 absolute inset-0  flex items-center"
 							>
-								<div className="inline w-full px-4">
+								<div className="inline w-full px-4 ">
 									<TextEffect
 										per="word"
 										delay={0.7}

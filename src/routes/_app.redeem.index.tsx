@@ -2,12 +2,11 @@ import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { MotionConfig, motion, useAnimation } from "motion/react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/Buttons/Button"
-import { Button as ButtonV3 } from "@/components/Buttons/ButtonV3"
 import HowToDrawer from "@/components/Drawers/HowToDrawer"
 import Giftcard from "@/components/Giftcard"
 import Layout from "@/components/Layout"
 
-export const Route = createFileRoute("/redeem/")({
+export const Route = createFileRoute("/_app/redeem/")({
 	component: RouteComponent,
 })
 
@@ -87,7 +86,7 @@ function RouteComponent() {
 											onHoverEnd={() => hashControls.start("hashed")}
 											className=" pointer-events-auto"
 										>
-											2323 2323 2323 2323 2323
+											4821 9374 1203 6682 5517
 										</Giftcard.Hashcode>
 									</div>
 								</Giftcard.ContentWrapper>
@@ -104,30 +103,23 @@ function RouteComponent() {
 						animate={footerControls}
 					>
 						<div className="overflow-hidden w-full flex items-center justify-center flex-col gap-2">
-							<div className="absolute w-full h-full bg-[#ececec] flex items-center justify-center top-0 flex-col gap-6 z-50">
-								<ButtonV3 size="lg" variant="primary">
-									Primary bigger button
-								</ButtonV3>
-								<ButtonV3 size="lg" variant="muted">
-									Muted
-								</ButtonV3>
-								<ButtonV3 size="lg" variant="outline">
-									Outline
-								</ButtonV3>
-
-								<ButtonV3 size="lg" variant="ghost">
-									Ghost
-								</ButtonV3>
-							</div>
 							<Button
-								// size="medium"
+								as={motion.button}
+								exit={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{
+									duration: 0.3,
+									ease: "easeInOut",
+								}}
+								size="md"
+								variant="ghost"
 								className="w-auto"
-								variant="soft-frosted"
 								onClick={() => setDrawerOpen(true)}
 							>
 								How to redeem?
 							</Button>
 							<Button
+								className="w-full"
 								onClick={() => router.navigate({ to: "/redeem/initiate", viewTransition: true })}
 							>
 								Redeem now

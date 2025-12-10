@@ -1,9 +1,11 @@
-export function Spinner({ className }: { className: string }) {
+import { cn } from "@/lib/utils"
+
+export function Spinner({ className }: { className?: string }) {
 	return (
 		<svg
 			viewBox="0 0 24 24"
 			xmlns="http://www.w3.org/2000/svg"
-			className={className}
+			className={cn(className)}
 			fill="currentColor"
 		>
 			<path

@@ -10,30 +10,35 @@
 
 	--text-\*: initial;
 
-	--text-large-title: 1.8rem;
-	--text-large-title--line-height: 2.4rem;
-	--text-large-title--letter-spacing: -0.024rem;
-	--text-large-title--font-weight: 600;
+	--text-2xl: 1.8rem;
+	--text-2xl--line-height: 2.2rem;
+	--text-2xl--letter-spacing: -0.024rem;
+	--text-2xl--font-weight: 600;
 
-	--text-title1: 1.5rem;
-	--text-title1--line-height: 1.9rem;
-	--text-title1--letter-spacing: -0.015rem;
-	--text-title1--font-weight: 500;
+	--text-xl: 1.5rem;
+	--text-xl--line-height: 1.7rem;
+	--text-xl--letter-spacing: -0.015rem;
+	--text-xl--font-weight: 500;
 
-	--text-title2: 1.2rem;
-	--text-title2--line-height: 1.647rem;
-	--text-title2--letter-spacing: -0.015rem;
-	--text-title2--font-weight: 500;
+	--text-lg: 1.2rem;
+	--text-lg--line-height: 1.647rem;
+	--text-lg--letter-spacing: -0.015rem;
+	--text-lg--font-weight: 500;
 
-	--text-body: 1rem;
-	--text-body--line-height: 1.294rem;
-	--text-body--letter-spacing: -0.025rem;
-	--text-body--font-weight: 500;
+	--text-md: 1rem;
+	--text-md--line-height: 1.294rem;
+	--text-md--letter-spacing: -0.025rem;
+	--text-md--font-weight: 500;
 
-	--text-caption: 0.9rem;
-	--text-caption--line-height: 1.1rem;
-	--text-caption--letter-spacing: -0.008rem;
-	--text-caption--font-weight: 500;
+	--text-sm: 0.9rem;
+	--text-sm--line-height: 1.1rem;
+	--text-sm--letter-spacing: -0.008rem;
+	--text-sm--font-weight: 500;
+
+	--text-xs: 0.8rem;
+	--text-xs--line-height: 1.1rem;
+	--text-xs--letter-spacing: -0.008rem;
+	--text-xs--font-weight: 500;
 
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
@@ -70,7 +75,7 @@
 	--primary: oklch(0.7595 0.2124 147.3);
 	--primary-foreground: oklch(0.9739 0.0011 17.18);
 	--muted: oklch(0.9739 0.0011 17.18);
-	--muted-foreground: oklch(0.495 0.003 16);
+	--muted-foreground: oklch(0.75 0.003 16);
 	--accent: oklch(0.967 0.001 48);
 	--accent-foreground: oklch(0.21 0.006 48);
 	--border: oklch(0.9 0.005 48);

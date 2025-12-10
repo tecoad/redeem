@@ -47,7 +47,9 @@ function Step1View({ setView }: { setView: (view: View) => void }) {
 
 			{/* <Drawer.Content>asd</Drawer.Content> */}
 			<Drawer.Footer>
-				<Button onClick={() => setView("step2")}>Continue</Button>
+				<Button variant="muted" onClick={() => setView("step2")}>
+					Continue
+				</Button>
 			</Drawer.Footer>
 		</>
 	)

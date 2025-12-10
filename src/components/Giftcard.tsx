@@ -124,7 +124,10 @@ function Expiration({
 	...props
 }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
-		<motion.div className={cn("flex text-white gap-0 flex-col h-full", className)} {...props}>
+		<motion.div
+			className={cn("flex text-white gap-0 flex-col h-full font-mono", className)}
+			{...props}
+		>
 			<motion.div className="overflow-hidden flex-1  text-[14px] uppercase font-medium">
 				<motion.div
 					variants={{
@@ -135,7 +138,7 @@ function Expiration({
 					Expires on
 				</motion.div>
 			</motion.div>
-			<motion.div className="overflow-hidden text-[16px] font-semibold h-7  flex items-center">
+			<motion.div className="overflow-hidden text-[18px] h-7  flex items-center">
 				<motion.div
 					variants={{
 						hidden: { translateY: "100%" },
@@ -169,7 +172,7 @@ function Balance({
 		<motion.div
 			initial="available"
 			whileHover="original"
-			className={cn("flex flex-col gap-0.5 pointer-events-auto", className)}
+			className={cn("flex flex-col gap-0.5 pointer-events-auto font-mono", className)}
 			{...props}
 		>
 			<motion.div
@@ -210,9 +213,9 @@ function Balance({
 					hidden: { translateY: "100%" },
 					visible: { translateY: "0%" },
 				}}
-				className={cn("flex text-[16px] group tracking-tight font-semibold h-7 items-center")}
+				className={cn("flex text-[18px] group tracking-tight h-7 items-center")}
 			>
-				<div className="aspect-square h-full font-semibold tracking-tight align-super bg-white rounded-l-sm p-1.5 ">
+				<div className="aspect-square h-full tracking-tight align-super bg-white rounded-l-sm p-1.5 ">
 					<sup>{currency}</sup>
 				</div>
 

@@ -10,7 +10,7 @@ import Layout from "@/components/Layout"
 import ScrollFade from "@/components/ScrollFade"
 import Stepper from "@/components/Stepper"
 
-export const Route = createFileRoute("/redeem/topup")({
+export const Route = createFileRoute("/_app/redeem/topup")({
 	component: RouteComponent,
 })
 
@@ -71,13 +71,13 @@ function RouteComponent() {
 						<p className="break-all text-white p-2 select-all cursor-text">{pixCode}</p>
 					</ScrollFade>
 					<Button
-						size="medium"
+						size="md"
 						className="aspect-square w-auto absolute top-0 right-0"
 						onClick={handleCopy}
 					>
 						<IconCopyFillDuo18 className="size-4 text-white" />
 					</Button>
-					<Button size="small" className="w-auto self-center">
+					<Button size="sm" className="w-auto self-center">
 						View QR Code
 					</Button>
 				</Giftcard.ContentWrapper>

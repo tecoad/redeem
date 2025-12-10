@@ -9,133 +9,183 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as RedeemIndexRouteImport } from './routes/redeem/index'
-import { Route as RedeemTopupRouteImport } from './routes/redeem/topup'
-import { Route as RedeemResultRouteImport } from './routes/redeem/result'
-import { Route as RedeemInitiateRouteImport } from './routes/redeem/initiate'
+import { Route as DesignSystemRouteImport } from './routes/design-system'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppIndexRouteImport } from './routes/_app.index'
+import { Route as AppRedeemIndexRouteImport } from './routes/_app.redeem.index'
+import { Route as AppRedeemTopupRouteImport } from './routes/_app.redeem.topup'
+import { Route as AppRedeemResultRouteImport } from './routes/_app.redeem.result'
+import { Route as AppRedeemInitiateRouteImport } from './routes/_app.redeem.initiate'
 
-const IndexRoute = IndexRouteImport.update({
+const DesignSystemRoute = DesignSystemRouteImport.update({
+  id: '/design-system',
+  path: '/design-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRoute,
 } as any)
-const RedeemIndexRoute = RedeemIndexRouteImport.update({
+const AppRedeemIndexRoute = AppRedeemIndexRouteImport.update({
   id: '/redeem/',
   path: '/redeem/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRoute,
 } as any)
-const RedeemTopupRoute = RedeemTopupRouteImport.update({
+const AppRedeemTopupRoute = AppRedeemTopupRouteImport.update({
   id: '/redeem/topup',
   path: '/redeem/topup',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRoute,
 } as any)
-const RedeemResultRoute = RedeemResultRouteImport.update({
+const AppRedeemResultRoute = AppRedeemResultRouteImport.update({
   id: '/redeem/result',
   path: '/redeem/result',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRoute,
 } as any)
-const RedeemInitiateRoute = RedeemInitiateRouteImport.update({
+const AppRedeemInitiateRoute = AppRedeemInitiateRouteImport.update({
   id: '/redeem/initiate',
   path: '/redeem/initiate',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/redeem/initiate': typeof RedeemInitiateRoute
-  '/redeem/result': typeof RedeemResultRoute
-  '/redeem/topup': typeof RedeemTopupRoute
-  '/redeem': typeof RedeemIndexRoute
+  '/design-system': typeof DesignSystemRoute
+  '/': typeof AppIndexRoute
+  '/redeem/initiate': typeof AppRedeemInitiateRoute
+  '/redeem/result': typeof AppRedeemResultRoute
+  '/redeem/topup': typeof AppRedeemTopupRoute
+  '/redeem': typeof AppRedeemIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/redeem/initiate': typeof RedeemInitiateRoute
-  '/redeem/result': typeof RedeemResultRoute
-  '/redeem/topup': typeof RedeemTopupRoute
-  '/redeem': typeof RedeemIndexRoute
+  '/design-system': typeof DesignSystemRoute
+  '/': typeof AppIndexRoute
+  '/redeem/initiate': typeof AppRedeemInitiateRoute
+  '/redeem/result': typeof AppRedeemResultRoute
+  '/redeem/topup': typeof AppRedeemTopupRoute
+  '/redeem': typeof AppRedeemIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/redeem/initiate': typeof RedeemInitiateRoute
-  '/redeem/result': typeof RedeemResultRoute
-  '/redeem/topup': typeof RedeemTopupRoute
-  '/redeem/': typeof RedeemIndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/design-system': typeof DesignSystemRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/redeem/initiate': typeof AppRedeemInitiateRoute
+  '/_app/redeem/result': typeof AppRedeemResultRoute
+  '/_app/redeem/topup': typeof AppRedeemTopupRoute
+  '/_app/redeem/': typeof AppRedeemIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/design-system'
     | '/'
     | '/redeem/initiate'
     | '/redeem/result'
     | '/redeem/topup'
     | '/redeem'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/redeem/initiate' | '/redeem/result' | '/redeem/topup' | '/redeem'
-  id:
-    | '__root__'
+  to:
+    | '/design-system'
     | '/'
     | '/redeem/initiate'
     | '/redeem/result'
     | '/redeem/topup'
-    | '/redeem/'
+    | '/redeem'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/design-system'
+    | '/_app/'
+    | '/_app/redeem/initiate'
+    | '/_app/redeem/result'
+    | '/_app/redeem/topup'
+    | '/_app/redeem/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  RedeemInitiateRoute: typeof RedeemInitiateRoute
-  RedeemResultRoute: typeof RedeemResultRoute
-  RedeemTopupRoute: typeof RedeemTopupRoute
-  RedeemIndexRoute: typeof RedeemIndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  DesignSystemRoute: typeof DesignSystemRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/design-system': {
+      id: '/design-system'
+      path: '/design-system'
+      fullPath: '/design-system'
+      preLoaderRoute: typeof DesignSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/': {
+      id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/redeem/': {
-      id: '/redeem/'
+    '/_app/redeem/': {
+      id: '/_app/redeem/'
       path: '/redeem'
       fullPath: '/redeem'
-      preLoaderRoute: typeof RedeemIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppRedeemIndexRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/redeem/topup': {
-      id: '/redeem/topup'
+    '/_app/redeem/topup': {
+      id: '/_app/redeem/topup'
       path: '/redeem/topup'
       fullPath: '/redeem/topup'
-      preLoaderRoute: typeof RedeemTopupRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppRedeemTopupRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/redeem/result': {
-      id: '/redeem/result'
+    '/_app/redeem/result': {
+      id: '/_app/redeem/result'
       path: '/redeem/result'
       fullPath: '/redeem/result'
-      preLoaderRoute: typeof RedeemResultRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppRedeemResultRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/redeem/initiate': {
-      id: '/redeem/initiate'
+    '/_app/redeem/initiate': {
+      id: '/_app/redeem/initiate'
       path: '/redeem/initiate'
       fullPath: '/redeem/initiate'
-      preLoaderRoute: typeof RedeemInitiateRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppRedeemInitiateRouteImport
+      parentRoute: typeof AppRoute
     }
   }
 }
 
+interface AppRouteChildren {
+  AppIndexRoute: typeof AppIndexRoute
+  AppRedeemInitiateRoute: typeof AppRedeemInitiateRoute
+  AppRedeemResultRoute: typeof AppRedeemResultRoute
+  AppRedeemTopupRoute: typeof AppRedeemTopupRoute
+  AppRedeemIndexRoute: typeof AppRedeemIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppIndexRoute: AppIndexRoute,
+  AppRedeemInitiateRoute: AppRedeemInitiateRoute,
+  AppRedeemResultRoute: AppRedeemResultRoute,
+  AppRedeemTopupRoute: AppRedeemTopupRoute,
+  AppRedeemIndexRoute: AppRedeemIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  RedeemInitiateRoute: RedeemInitiateRoute,
-  RedeemResultRoute: RedeemResultRoute,
-  RedeemTopupRoute: RedeemTopupRoute,
-  RedeemIndexRoute: RedeemIndexRoute,
+  AppRoute: AppRouteWithChildren,
+  DesignSystemRoute: DesignSystemRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

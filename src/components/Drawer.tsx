@@ -30,6 +30,9 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 		if (open !== undefined) {
 			setDrawerOpen(open)
 		}
+		return () => {
+			setDrawerOpen(false)
+		}
 	}, [open, setDrawerOpen])
 
 	const opacityDuration = useMemo(() => {
@@ -137,7 +140,7 @@ function DrawerTitle({
 	className?: string
 }) {
 	return (
-		<div className={cn("flex flex-col gap-4 mt-10 text-title2 font-semibold", className)}>
+		<div className={cn("flex flex-col gap-4 mt-10 text-lg font-semibold", className)}>
 			{icon}
 			<VaulDrawer.Title>{children}</VaulDrawer.Title>
 		</div>
@@ -151,7 +154,7 @@ function DrawerDescription({
 	children: React.ReactNode
 	className?: string
 }) {
-	return <p className={cn("mt-3 text-body text-muted-foreground", className)}>{children}</p>
+	return <p className={cn("mt-3 text-md text-muted-foreground", className)}>{children}</p>
 }
 
 function DrawerContent({ children, className }: { children: React.ReactNode; className?: string }) {
