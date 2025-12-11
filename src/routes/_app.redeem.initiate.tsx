@@ -133,11 +133,9 @@ function RouteComponent() {
 						disabled={true}
 						initial={{
 							opacity: 0,
-							rotate: "12deg",
 						}}
 						animate={{
 							opacity: 1,
-							rotate: "0deg",
 						}}
 						transition={{
 							delay: 1,
