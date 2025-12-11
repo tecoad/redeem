@@ -55,7 +55,7 @@ function RouteComponent() {
 												damping: 20,
 											}}
 										>
-											<div className="flex items-center self-start overflow-hidden mix-blend-screen ">
+											<div className="flex items-center self-start overflow-hidden">
 												<Giftcard.Balance
 													initial="hidden"
 													animate={balanceControls}

@@ -117,7 +117,7 @@ function RouteComponent() {
 			</Giftcard>
 			<Layout.Footer>
 				<ConfirmButton
-					duration={3}
+					duration={1.25}
 					disabled={!hasConfirmedPayment}
 					variant={hasConfirmedPayment ? "muted" : "outline"}
 					onSuccessConfirm={() => router.navigate({ to: "/redeem/result" })}

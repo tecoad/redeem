@@ -1,6 +1,7 @@
 import { createFileRoute, type FileRouteTypes, useLocation } from "@tanstack/react-router"
 import { useState } from "react"
 import { Button } from "@/components/Buttons/Button"
+import DotPulseLoading from "@/components/DotPulseLoading"
 import Stepper from "@/components/Stepper"
 
 export const Route = createFileRoute("/design-system")({
@@ -44,6 +45,7 @@ function RouteComponent() {
 						Change step
 					</Button>
 				</div>
+				<DotPulseLoading />
 			</div>
 		</div>
 	)

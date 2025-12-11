@@ -5,8 +5,10 @@ import {
 	useMotionTemplate,
 	useMotionValue,
 } from "motion/react"
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button, type ButtonProps } from "./Buttons/Button"
+import DotPulseLoading from "./DotPulseLoading"
 
 const INITIAL = 100
 
@@ -23,15 +25,27 @@ export function ConfirmButton({
 } & ButtonProps &
 	HTMLMotionProps<"button">) {
 	const clip = useMotionValue(INITIAL)
+	const [hasConfirmed, setHasConfirmed] = useState(false)
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		if (hasConfirmed) {
+			// Emulate server response
+			const timeout = setTimeout(() => {
+				onSuccessConfirm?.()
+			}, 1500)
+			return () => clearTimeout(timeout)
+		}
+	}, [hasConfirmed])
 
 	function startConfirm() {
 		if (disabled) return
-		console.log("Starting with duration:", duration)
+
 		animate(clip, 0, {
 			ease: "linear",
 			duration,
 			onComplete: () => {
-				onSuccessConfirm?.()
+				setHasConfirmed(true)
 			},
 		})
 	}
@@ -56,11 +70,44 @@ export function ConfirmButton({
 				className="absolute inset-0 z-10 pointer-events-none transition-none"
 				size="lg"
 				style={{
-					clipPath,
+					clipPath: !hasConfirmed ? clipPath : undefined,
 				}}
 			>
-				Confirming
+				<motion.div
+					initial="ready"
+					animate={hasConfirmed ? "processing" : "ready"}
+					className="grid overflow-hidden size-full"
+				>
+					<motion.div
+						className="[grid-area:1/1] size-full flex items-center justify-center"
+						variants={{
+							ready: {
+								translateY: "0%",
+							},
+							processing: {
+								translateY: "-100%",
+							},
+						}}
+					>
+						To process
+					</motion.div>
+					<motion.div
+						className="[grid-area:1/1] size-full flex items-center justify-center"
+						variants={{
+							ready: {
+								translateY: "100%",
+							},
+							processing: {
+								translateY: "0%",
+							},
+						}}
+					>
+						<DotPulseLoading className="bg-white" />
+					</motion.div>
+				</motion.div>
 			</Button>
+
+			{/* <DotPulseLoading className="bg-white" /> */}
 
 			<Button
 				as={motion.button}

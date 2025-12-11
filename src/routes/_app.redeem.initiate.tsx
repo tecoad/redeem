@@ -26,7 +26,7 @@ type ActiveDrawer = "topup" | "confirmation" | null
 
 function RouteComponent() {
 	const [activeDrawer, setActiveDrawer] = useState<ActiveDrawer>(null)
-	const [lastOpened, setLastOpened] = useState<"topup" | "confirmation">("confirmation")
+	const [_lastOpened, setLastOpened] = useState<"topup" | "confirmation">("confirmation")
 
 	const [state, setState] = useState<ButtonStates>("idle")
 	const [canUserProceed, setCanUserProceed] = useState(false)

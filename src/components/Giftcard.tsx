@@ -3,17 +3,27 @@ import { useId } from "react"
 import { cn } from "@/lib/utils"
 import { GifterLogo, WineLogo } from "./Logos"
 
-function Root({ className, children, ...props }: { className?: string } & HTMLMotionProps<"div">) {
+function Root({
+	className,
+	children,
+	...props
+}: { className?: string; children?: React.ReactNode } & HTMLMotionProps<"div">) {
 	return (
 		// <GlareCard className="contents">
 		<motion.div
 			className={cn(
-				"w-full aspect-card flex pointer-events-none select-none  rounded-[24px] bg-[#48B69C] relative overflow-hidden",
+				"w-full aspect-card flex pointer-events-none select-none rounded-(--radius)   relative overflow-hidden",
+				"bg-cover bg-center bg-no-repeat bg-[url(bg1.jpg)]",
+				"shadow-lg/10 shadow-[#5613A3] p-px",
+				"[--color:#5613A3] [--radius:24px]",
 				"[view-transition-name:giftcard] ",
 				className
 			)}
 			{...props}
 		>
+			{/* <div className="absolute inset-[10px] rounded-[calc(var(--radius)-5px)] bg-gradient-to-t from-black to-black/50 mix-blend-soft-light "></div> */}
+
+			<div className="absolute z-10 rounded-[inherit] inset-0 border-10 border-white mix-blend-overlay  blur-[1px]" />
 			{children}
 		</motion.div>
 		// </GlareCard>
@@ -55,7 +65,7 @@ function Hashcode({
 			transition={{
 				delayChildren: stagger(0.02),
 			}}
-			className={cn("flex  font-mono text-lg gap-1.5 text-white", className)}
+			className={cn("flex  font-mono text-lg gap-1.5 text-(--color,white)", className)}
 			{...props}
 		>
 			{parts.map((part, i) => {
@@ -125,7 +135,7 @@ function Expiration({
 }: { className?: string } & HTMLMotionProps<"div">) {
 	return (
 		<motion.div
-			className={cn("flex text-white gap-0 flex-col h-full font-mono", className)}
+			className={cn("flex text-(--color,white) gap-0 flex-col h-full font-mono", className)}
 			{...props}
 		>
 			<motion.div className="overflow-hidden flex-1  text-[14px] uppercase font-medium">
@@ -180,7 +190,7 @@ function Balance({
 					visible: { translateY: "0%" },
 					hidden: { translateY: "-100%" },
 				}}
-				className="text-white overflow-hidden text-[14px] uppercase font-medium grid"
+				className="text-(--color,white) overflow-hidden text-[14px] uppercase font-medium grid"
 			>
 				<motion.div
 					variants={{
@@ -215,7 +225,7 @@ function Balance({
 				}}
 				className={cn("flex text-[18px] group tracking-tight h-7 items-center")}
 			>
-				<div className="aspect-square h-full tracking-tight align-super bg-white rounded-l-sm p-1.5 ">
+				<div className="aspect-square h-full tracking-tight align-super bg-(--color,white) text-white rounded-l-sm p-1.5 ">
 					<sup>{currency}</sup>
 				</div>
 
@@ -227,7 +237,7 @@ function Balance({
 					</div>
 
 					<motion.div
-						className=" bg-white absolute inset-0  flex items-center justify-start"
+						className=" bg-(--color,white) absolute inset-0  flex items-center justify-start text-white"
 						style={{ clipPath: "inset(0 25px 0 0)" }}
 						variants={{
 							available: { clipPath: "inset(0 25px 0 0)" },
@@ -237,7 +247,7 @@ function Balance({
 						<div>{availableValueString}</div>
 					</motion.div>
 					<motion.div
-						className=" absolute overflow-hidden inset-0 flex items-center justify-end text-white bg-[url(/lightshade.svg)] bg-contain bg-repeat-x"
+						className=" absolute overflow-hidden inset-0"
 						style={{
 							clipPath: "inset(0 0 0 calc(100% - 25px))",
 							maskImage: "linear-gradient(to right, transparent calc(100% - 25px), black 90%)",
@@ -253,7 +263,10 @@ function Balance({
 							},
 						}}
 					>
-						<div className="pr-2">{originalValueString}</div>
+						<div className="absolute inset-0 bg-(--color,white) [mask-image:url(/lightshade.svg)] [mask-size:contain] [mask-repeat:repeat-x]" />
+						<div className="flex items-center justify-end h-full">
+							<div className="pr-2 text-(--color,white)">{originalValueString}</div>
+						</div>
 					</motion.div>
 				</div>
 			</motion.div>
