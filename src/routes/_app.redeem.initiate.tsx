@@ -8,13 +8,14 @@ import {
 import { useState } from "react"
 import { Button, type ButtonStates } from "@/components/Buttons/Button"
 import { SlideXButton } from "@/components/Buttons/SlideXButton"
-import ConfirmationDrawer from "@/components/Drawers/ConfirmationDrawer"
 import TopupDrawer from "@/components/Drawers/TopupDrawer"
 import Giftcard from "@/components/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
+import { Skeleton } from "@/components/Skeleton"
 import { Spinner } from "@/components/Spinner"
 import Stepper from "@/components/Stepper"
+import { subtitleMotionConfig, titleMotionConfig } from "@/lib/motionConfigs"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/_app/redeem/initiate")({
@@ -32,7 +33,8 @@ function RouteComponent() {
 	const [clickCount, setClickCount] = useState(0)
 
 	const handleOpenDrawer = () => {
-		const next = lastOpened === "topup" ? "confirmation" : "topup"
+		// const next = lastOpened === "topup" ? "confirmation" : "topup"
+		const next = "topup"
 		setActiveDrawer(next)
 		setLastOpened(next)
 	}
@@ -51,44 +53,10 @@ function RouteComponent() {
 				</Stepper>
 
 				<Heading>
-					<Heading.Title
-						as={motion.div}
-						initial={{
-							translateY: "-30px",
-							filter: "blur(3px)",
-							opacity: 0,
-							rotate: "-8deg",
-						}}
-						animate={{
-							translateY: "0px",
-							filter: "blur(0px)",
-							opacity: 1,
-							rotate: "0deg",
-						}}
-						transition={{
-							delay: 0.3,
-						}}
-					>
+					<Heading.Title as={motion.h1} {...titleMotionConfig}>
 						Redeeming
 					</Heading.Title>
-					<Heading.Subtitle
-						as={motion.div}
-						initial={{
-							translateY: "-30px",
-							filter: "blur(3px)",
-							opacity: 0,
-							rotate: "8deg",
-						}}
-						animate={{
-							translateY: "0px",
-							filter: "blur(0px)",
-							opacity: 1,
-							rotate: "0deg",
-						}}
-						transition={{
-							delay: 0.4,
-						}}
-					>
+					<Heading.Subtitle as={motion.h2} {...subtitleMotionConfig}>
 						Enter the PIX code provided by the merchant at the payment.
 					</Heading.Subtitle>
 				</Heading>
@@ -96,12 +64,18 @@ function RouteComponent() {
 				<div className="flex flex-col gap-5 w-full items-center justify-center">
 					<Giftcard
 						className={cn(
-							"flex flex-col items-center justify-center bg-muted",
-							canUserProceed && "bg-success"
+							"flex flex-col items-center justify-center bg-muted transition-colors duration-150 ease-in-out",
+							canUserProceed && state === "success" && "bg-success",
+							state === "error" && "bg-destructive/10"
 						)}
 					>
+						{state === "pending" && (
+							<Skeleton
+								className={cn("size-full opacity-60 absolute inset-0 [--color:var(--primary)]")}
+							/>
+						)}
 						<motion.div
-							className="size-full flex items-center justify-center"
+							className="size-full flex items-center justify-center flex flex-col gap-3"
 							initial={{
 								translateY: "100%",
 								opacity: 0,
@@ -147,7 +121,7 @@ function RouteComponent() {
 								icon={ICON[state]}
 								className="w-auto pointer-events-auto "
 								size="md"
-								variant="outline"
+								variant={state === "success" ? "outline" : "muted"}
 								state={state}
 							>
 								{LABEL[state ?? "idle"]}
@@ -156,6 +130,7 @@ function RouteComponent() {
 					</Giftcard>
 					<Button
 						as={motion.button}
+						disabled={true}
 						initial={{
 							opacity: 0,
 							rotate: "12deg",
@@ -169,7 +144,7 @@ function RouteComponent() {
 						}}
 						size="md"
 						variant="outline"
-						className="w-auto"
+						className="w-auto cursor-not-allowed"
 					>
 						<IconQrcodeFillDuo18 className="size-5" /> Read qrcode
 					</Button>
@@ -181,7 +156,8 @@ function RouteComponent() {
 					</motion.div>
 					<Button
 						// disabled={!canUserProceed}
-						variant={canUserProceed ? "primary" : "muted"}
+						size="lg"
+						variant={canUserProceed ? "primary" : "outline"}
 						onClick={handleOpenDrawer}
 					>
 						Proceed
@@ -192,19 +168,19 @@ function RouteComponent() {
 				open={activeDrawer === "topup"}
 				onOpenChange={open => setActiveDrawer(open ? "topup" : null)}
 			/>
-			<ConfirmationDrawer
+			{/* <ConfirmationDrawer
 				open={activeDrawer === "confirmation"}
 				onOpenChange={open => setActiveDrawer(open ? "confirmation" : null)}
-			/>
+			/> */}
 		</>
 	)
 }
 
 const ICON = {
 	idle: null,
-	pending: <Spinner className="text-primary" />,
-	success: <IconCircleCheck3FillDuo18 className="text-success" />,
-	error: <IconTriangleWarningFillDuo18 className="text-destructive" />,
+	pending: <Spinner />,
+	success: <IconCircleCheck3FillDuo18 />,
+	error: <IconTriangleWarningFillDuo18 />,
 }
 
 const LABEL = {

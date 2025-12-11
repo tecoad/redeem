@@ -68,7 +68,7 @@ function Root({ children, closable = true, activeElementKey, ...props }: DrawerP
 
 			<VaulDrawer.Content
 				className={cn(
-					"flex px-4 flex-col [--initial-transform:118%]   absolute bottom-4 overflow-hidden left-0 right-0 [--padding-x:30px]",
+					"flex px-4 flex-col [--initial-transform:128%]   absolute bottom-4 overflow-hidden left-0 right-0 [--padding-x:30px]",
 					className
 				)}
 			>

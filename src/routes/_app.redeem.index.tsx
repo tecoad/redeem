@@ -111,7 +111,6 @@ function RouteComponent() {
 									duration: 0.3,
 									ease: "easeInOut",
 								}}
-								size="md"
 								variant="ghost"
 								className="w-auto"
 								onClick={() => setDrawerOpen(true)}
@@ -120,6 +119,7 @@ function RouteComponent() {
 							</Button>
 							<Button
 								className="w-full"
+								size="lg"
 								onClick={() => router.navigate({ to: "/redeem/initiate", viewTransition: true })}
 							>
 								Redeem now

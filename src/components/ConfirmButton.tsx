@@ -1,23 +1,32 @@
-import { animate, motion, useMotionTemplate, useMotionValue } from "motion/react"
+import {
+	animate,
+	type HTMLMotionProps,
+	motion,
+	useMotionTemplate,
+	useMotionValue,
+} from "motion/react"
 import { cn } from "@/lib/utils"
-import { Button } from "./Buttons/Button"
+import { Button, type ButtonProps } from "./Buttons/Button"
 
 const INITIAL = 100
 
 export function ConfirmButton({
-	children,
 	className,
 	onSuccessConfirm,
 	duration = 1,
+	disabled,
+	...props
 }: {
-	children: React.ReactNode
 	className?: string
 	onSuccessConfirm?: () => void
 	duration?: number
-}) {
+} & ButtonProps &
+	HTMLMotionProps<"button">) {
 	const clip = useMotionValue(INITIAL)
 
 	function startConfirm() {
+		if (disabled) return
+		console.log("Starting with duration:", duration)
 		animate(clip, 0, {
 			ease: "linear",
 			duration,
@@ -38,43 +47,43 @@ export function ConfirmButton({
 	const clipPath = useMotionTemplate`inset(0px ${clip}% 0px 0px round 0px)`
 
 	return (
-		<Button
-			className={cn(
-				"overflow-hidden whitespace-nowrap relative  hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 bg-success hover:bg-muted-foreground",
-				className
-			)}
-			onPointerDown={startConfirm}
-			onPointerUp={stopConfirm}
-			onMouseLeave={() => {
-				stopConfirm()
-			}}
-			onKeyDown={e => {
-				if (e.key === "Enter") {
-					startConfirm()
-				}
-			}}
-			onKeyUp={e => {
-				if (e.key === "Enter") {
-					stopConfirm()
-				}
-			}}
-		>
-			<span className="flex items-center justify-center gap-2 relative w-full user-select-none">
-				{/* <IconTrash className="translate-y-[-1px]" /> */}
-				<span>{children}</span>
-			</span>
-
-			<motion.div
-				key="bar"
+		<div className="w-full relative">
+			<Button
 				aria-hidden
-				className="flex items-center justify-center absolute left-0 top-0 pointer-events-none w-full h-full rounded-full bg-success text-white"
-				style={{ clipPath }}
+				as={motion.button}
+				key="bar"
+				variant="primary"
+				className="absolute inset-0 z-10 pointer-events-none transition-none"
+				size="lg"
+				style={{
+					clipPath,
+				}}
 			>
-				<span className="flex items-center gap-2 relative z-2 -nowrap text-white">
-					{/* <IconTrash className="translate-y-[-1px]" /> */}
-					<span>{children}</span>
-				</span>
-			</motion.div>
-		</Button>
+				Confirming
+			</Button>
+
+			<Button
+				as={motion.button}
+				className={cn("", className)}
+				onPointerDown={startConfirm}
+				onPointerUp={stopConfirm}
+				size="lg"
+				disabled={disabled}
+				onMouseLeave={() => {
+					stopConfirm()
+				}}
+				onKeyDown={e => {
+					if (e.key === "Enter") {
+						startConfirm()
+					}
+				}}
+				onKeyUp={e => {
+					if (e.key === "Enter") {
+						stopConfirm()
+					}
+				}}
+				{...props}
+			/>
+		</div>
 	)
 }

@@ -54,7 +54,7 @@ function Step({
 				<motion.div
 					layoutId={`stepper-step-${to}`}
 					whileHover={{
-						height: activeRoute ? "auto" : "8px",
+						height: activeRoute ? "auto" : "10px",
 					}}
 					variants={{
 						hidden: { translateY: "-50px", filter: "blur(0px)", opacity: 0 },
@@ -64,8 +64,8 @@ function Step({
 							translateY: "0px",
 							opacity: 1,
 							filter: "blur(0px)",
-							width: activeRoute ? "auto" : "8px",
-							height: "8px",
+							width: activeRoute ? "auto" : "10px",
+							height: "10px",
 							borderRadius: "99px",
 							backgroundColor: activeRoute ? "var(--primary)" : "var(--muted-foreground)",
 							transition: {
@@ -79,17 +79,17 @@ function Step({
 					animate={hasAnimated ? "interactive" : undefined}
 					onAnimationComplete={() => setHasAnimated(true)}
 					className={cn(
-						"flex cursor-pointer group shrink-0 text-nowrap items-center gap-2 overflow-hidden bg-muted-foreground pointer-events-auto uppercase tracking-tighter text-xs font-mono shadow-inner text-white",
+						"flex cursor-pointer group shrink-0 text-nowrap items-center gap-2 overflow-hidden bg-muted-foreground pointer-events-auto uppercase tracking-tighter text-md font-mono shadow-inner text-white",
 						className
 					)}
 					style={{
-						width: "8px",
-						height: "8px",
+						width: "10px",
+						height: "10px",
 						borderRadius: "99px",
 					}}
 					{...props}
 				>
-					<motion.span className="mx-3 group-hover:opacity-100 opacity-0 transition-opacity duration-150">
+					<motion.span className="mx-3 my-2 group-hover:opacity-100 opacity-0 transition-opacity duration-150">
 						{children}
 					</motion.span>
 				</motion.div>

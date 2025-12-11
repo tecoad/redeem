@@ -1,4 +1,4 @@
-import { useRouter } from "@tanstack/react-router"
+import { useCanGoBack, useRouter } from "@tanstack/react-router"
 import type React from "react"
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react"
 import { useBreakpoint } from "@/lib/hooks/useBreakpoint"
@@ -20,6 +20,7 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 	const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null)
 	const [scale, setScale] = useState<number | null>(null)
 	const router = useRouter()
+	const canGoBack = useCanGoBack()
 
 	// Ref callback to set portal container immediately when element is created
 	const portalRefCallback = useCallback((node: HTMLDivElement | null) => {
@@ -27,6 +28,16 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 			setPortalContainer(node)
 		}
 	}, [])
+
+	const handleRedirect = () => {
+		console.log("canGoBack", canGoBack)
+		if (canGoBack) {
+			router.shouldViewTransition = true
+			router.history.back()
+		} else {
+			router.navigate({ to: "/" })
+		}
+	}
 
 	useEffect(() => {
 		const container = containerRef.current
@@ -74,8 +85,8 @@ function DesktopWrapper({ children }: { children: React.ReactNode }) {
 					{/* Back button */}
 					<button
 						type="button"
-						onClick={() => router.history.back()}
-						className="absolute  left-[36px] bottom-[42px] size-[46px] rounded-full z-15"
+						onClick={handleRedirect}
+						className="absolute pointer-events-auto  left-[36px] bottom-[42px] size-[46px] rounded-full z-15"
 					/>
 
 					{/* Shadow for the viewport */}

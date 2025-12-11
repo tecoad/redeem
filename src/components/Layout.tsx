@@ -15,8 +15,8 @@ const Root = forwardRef<HTMLDivElement, RootProps>(({ children, className, as, .
 		<Component
 			ref={ref}
 			className={cn(
-				"p-4 flex gap-2 w-full h-full items-start flex-col transition-transform ease-out duration-150",
-				isDrawerOpen ? "scale-90" : "scale-100",
+				"p-4 flex gap-2 w-full h-full items-start flex-col transition-transform  duration-600 will-change-transform ease-out-expo",
+				isDrawerOpen ? "scale-[92%]" : "scale-100",
 				className
 			)}
 			{...props}

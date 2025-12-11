@@ -36,7 +36,7 @@ export function SlideXButton({
 							bounce: 0.2,
 							duration: 0.4,
 						}}
-						className="block size-6 shrink-0  flex  items-center justify-center"
+						className="block size-6 shrink-0  items-center justify-center"
 					>
 						{icon}
 					</motion.span>

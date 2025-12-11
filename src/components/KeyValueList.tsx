@@ -20,7 +20,7 @@ function KeyValueList({ items, className }: KeyValueListProps) {
 				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 				<div key={`${id}-${index}`} className="contents">
 					{item.dividerBefore && <hr className="col-span-2 my-1.5" />}
-					<dt>{item.key}</dt>
+					<dt className="text-muted-foreground">{item.key}</dt>
 					<dd className="text-left">{item.value}</dd>
 				</div>
 			))}

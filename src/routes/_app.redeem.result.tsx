@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
+import { motion } from "motion/react"
+import { IconPaperPlane2FillDuo18 } from "nucleo-ui-fill-duo-18"
 import { useState } from "react"
 import { Button } from "@/components/Buttons/Button"
 import { CheckIcon } from "@/components/CheckIcon"
@@ -6,6 +8,8 @@ import SendReceiptDrawer from "@/components/Drawers/SendReceiptDrawer"
 import Heading from "@/components/Heading"
 import KeyValueList from "@/components/KeyValueList"
 import Layout from "@/components/Layout"
+import { TextScramble } from "@/components/TextScramble"
+import { subtitleMotionConfig, titleMotionConfig } from "@/lib/motionConfigs"
 
 export const Route = createFileRoute("/_app/redeem/result")({
 	component: RouteComponent,
@@ -17,11 +21,26 @@ function RouteComponent() {
 		<>
 			<Layout>
 				<Heading className="mt-15">
-					<CheckIcon className="size-12 mb-5" />
-					<Heading.Title>Done</Heading.Title>
-					<Heading.Subtitle>Here is your receipt</Heading.Subtitle>
+					<motion.div
+						initial={{ opacity: 0, translateY: 100, filter: "blur(6px)", rotate: 30 }}
+						animate={{ opacity: 1, translateY: 0, filter: "blur(0px)", scale: 1, rotate: 0 }}
+						transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.3 }}
+					>
+						<CheckIcon className="size-16 mb-2 -ml-2 text-success" />
+					</motion.div>
+					<Heading.Title as={motion.h1} {...titleMotionConfig}>
+						Done
+					</Heading.Title>
+					<Heading.Subtitle as={motion.h2} {...subtitleMotionConfig}>
+						Here is your receipt
+					</Heading.Subtitle>
 				</Heading>
-				<div className="w-full px-4 py-10">
+				<motion.div
+					initial={{ opacity: 0, translateY: 100, filter: "blur(6px)", rotate: 30 }}
+					animate={{ opacity: 1, translateY: 0, filter: "blur(0px)", scale: 1, rotate: 0 }}
+					transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.3 }}
+					className="w-full p-4 bg-muted rounded-xl shadow-inner"
+				>
 					<KeyValueList
 						items={[
 							{ key: "Transaction ID", value: "1234567890" },
@@ -30,16 +49,21 @@ function RouteComponent() {
 							{ key: "Time", value: "10:00" },
 						]}
 					/>
-				</div>
-				<div className="w-full break-all">
-					<div className="text-muted-foreground font-semibold">Authorization code</div>
-					<div>F646B96B450AA8A4D79A84A3FD34EC20EE5520</div>
+				</motion.div>
+				<div className=" break-all  px-4 mt-4">
+					<div className="text-muted-foreground text-sm">Authorization code</div>
+					<div className="font-mono text-lg">
+						<TextScramble duration={1.5}>F646B96B450AA8A4D79A84A3FD34EC20EE5520</TextScramble>
+					</div>
 				</div>
 				<Layout.Footer>
-					<Button onClick={() => setDrawerOpen(true)}>Send to my email</Button>
+					<Button size="lg" onClick={() => setDrawerOpen(true)}>
+						<IconPaperPlane2FillDuo18 /> Send to my email
+					</Button>
 				</Layout.Footer>
 			</Layout>
-			<SendReceiptDrawer open={drawerOpen} onOpenChange={open => setDrawerOpen(open)} />
+			{/* <HowToDrawer open={drawerOpen} onOpenChange={setDrawerOpen} /> */}
+			<SendReceiptDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
 		</>
 	)
 }

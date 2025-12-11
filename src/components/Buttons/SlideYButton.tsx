@@ -36,30 +36,32 @@ export function SlideYButton({
 							bounce: 0.2,
 							duration: 0.4,
 						}}
-						className="block size-6 shrink-0"
+						className="size-6 shrink-0 flex items-center justify-center"
 					>
 						{icon}
 					</motion.span>
 				)}
 			</AnimatePresence>
 			<AnimatePresence mode="popLayout" initial={false}>
-				<motion.span
-					key={state}
-					initial={{ y: (state === "pending" ? -1 : 1) * 48, opacity: 0 }}
-					animate={{ y: 0, opacity: 1 }}
-					exit={{
-						y: (state === "pending" ? -1 : 1) * 48,
-						opacity: 0,
-					}}
-					transition={{
-						type: "spring",
-						bounce: 0.3,
-						duration: 0.6,
-					}}
-					className="line-clamp-1"
-				>
-					{children}
-				</motion.span>
+				{children && (
+					<motion.span
+						key={state}
+						initial={{ y: (state === "pending" ? -1 : 1) * 48, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						exit={{
+							y: (state === "pending" ? -1 : 1) * 48,
+							opacity: 0,
+						}}
+						transition={{
+							type: "spring",
+							bounce: 0.3,
+							duration: 0.6,
+						}}
+						className="line-clamp-1"
+					>
+						{children}
+					</motion.span>
+				)}
 			</AnimatePresence>
 		</Button>
 	)

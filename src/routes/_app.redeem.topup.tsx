@@ -1,14 +1,21 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { AnimateNumber } from "motion-plus/react"
-import { IconCopyFillDuo18 } from "nucleo-ui-fill-duo-18"
+import {
+	IconCheckOutline18,
+	IconClockTimeOutline18,
+	IconDuplicate2Outline18,
+} from "nucleo-ui-outline-18"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/Buttons/Button"
+import { SlideYButton } from "@/components/Buttons/SlideYButton"
 import { ConfirmButton } from "@/components/ConfirmButton"
 import Giftcard from "@/components/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
 import ScrollFade from "@/components/ScrollFade"
+import { Skeleton } from "@/components/Skeleton"
 import Stepper from "@/components/Stepper"
+import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/_app/redeem/topup")({
 	component: RouteComponent,
@@ -17,11 +24,20 @@ export const Route = createFileRoute("/_app/redeem/topup")({
 function RouteComponent() {
 	const router = useRouter()
 	const [timeRemaining, setTimeRemaining] = useState(15 * 60)
-	const [_hasConfirmedPayment, _setHasConfirmedPayment] = useState(false)
-	const [_copied, setCopied] = useState(false)
+	const [hasConfirmedPayment, setHasConfirmedPayment] = useState(false)
+	const [copied, setCopied] = useState(false)
 
 	const pixCode =
 		"00020101021226780014br.gov.bcb.pix2556pix.ebanx.com/qr/v2/7F646B96B450AA8A4D79A84A3FD34EC20EE55204000053039865802BR5905EBANX6008CURITIBA62070503***63040C96"
+
+	useEffect(() => {
+		if (!hasConfirmedPayment) {
+			const timer = setTimeout(() => {
+				setHasConfirmedPayment(true)
+			}, 5000)
+			return () => clearTimeout(timer)
+		}
+	}, [hasConfirmedPayment])
 
 	useEffect(() => {
 		if (timeRemaining <= 0) return
@@ -65,29 +81,60 @@ function RouteComponent() {
 				<Heading.Title>Pending payment R$20,00</Heading.Title>
 				<Heading.Subtitle>Proceed in the topup to continue the redeeming process</Heading.Subtitle>
 			</Heading>
-			<Giftcard className="pointer-events-auto">
-				<Giftcard.ContentWrapper>
-					<ScrollFade className="h-[100px]" shadowHeight={40}>
-						<p className="break-all text-white p-2 select-all cursor-text">{pixCode}</p>
-					</ScrollFade>
-					<Button
-						size="md"
-						className="aspect-square w-auto absolute top-0 right-0"
-						onClick={handleCopy}
-					>
-						<IconCopyFillDuo18 className="size-4 text-white" />
-					</Button>
-					<Button size="sm" className="w-auto self-center">
-						View QR Code
-					</Button>
-				</Giftcard.ContentWrapper>
+			<Giftcard
+				className={cn(
+					"shadow-inner pointer-events-auto bg-muted flex gap-3 flex-col transition-colors duration-150 ease-in-out",
+					copied && "bg-success/10"
+				)}
+			>
+				{copied && <Skeleton executeOnce className="size-full absolute inset-0 [--color:white]" />}
+				<ScrollFade className="h-[calc(100%-40px)] p-6 pr-18" shadowHeight={40}>
+					<p className="break-all text-muted-foreground font-medium select-all cursor-text">
+						{pixCode}
+					</p>
+				</ScrollFade>
+				<SlideYButton
+					size="sm"
+					variant={copied ? "primary" : "muted"}
+					state={copied ? "success" : "idle"}
+					icon={
+						copied ? (
+							<IconCheckOutline18 className="size-5" />
+						) : (
+							<IconDuplicate2Outline18 className="size-5" />
+						)
+					}
+					className="w-auto absolute top-6 right-4 aspect-square"
+					onClick={handleCopy}
+				/>
+				<Button
+					size="sm"
+					variant="outline"
+					className="w-auto self-center absolute bottom-6 left-1/2 -translate-x-1/2"
+				>
+					View QR Code
+				</Button>
 			</Giftcard>
 			<Layout.Footer>
-				<ConfirmButton onSuccessConfirm={() => router.navigate({ to: "/redeem/result" })}>
-					Pay in &nbsp;
-					<AnimateNumber>{minutes}</AnimateNumber>&nbsp;:&nbsp;
-					{seconds < 10 ? "0" : ""}
-					<AnimateNumber>{seconds}</AnimateNumber>
+				<ConfirmButton
+					duration={3}
+					disabled={!hasConfirmedPayment}
+					variant={hasConfirmedPayment ? "muted" : "outline"}
+					onSuccessConfirm={() => router.navigate({ to: "/redeem/result" })}
+				>
+					{hasConfirmedPayment ? (
+						"Hold to redeem"
+					) : (
+						<>
+							<IconClockTimeOutline18 className="size-5" />
+							<span>
+								Pay in &nbsp;
+								<AnimateNumber>{minutes}</AnimateNumber>&nbsp;:&nbsp;
+								{seconds < 10 ? "0" : ""}
+								<AnimateNumber>{seconds}</AnimateNumber>
+							</span>
+						</>
+					)}
 				</ConfirmButton>
 			</Layout.Footer>
 		</Layout>

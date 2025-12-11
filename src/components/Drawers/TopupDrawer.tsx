@@ -34,9 +34,11 @@ function TopupDrawer(props: DrawerProps) {
 			</Drawer.Content>
 			<Drawer.Footer>
 				<Drawer.Close asChild>
-					<Button variant="neutral">Dismiss</Button>
+					<Button variant="outline">Dismiss</Button>
 				</Drawer.Close>
-				<Button onClick={() => router.navigate({ to: "/redeem/topup" })}>Proceed</Button>
+				<Button onClick={() => router.navigate({ to: "/redeem/topup", viewTransition: true })}>
+					Proceed
+				</Button>
 			</Drawer.Footer>
 		</Drawer>
 	)
