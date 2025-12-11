@@ -6,24 +6,34 @@ import { GifterLogo, WineLogo } from "./Logos"
 function Root({
 	className,
 	children,
+	showBgImage = false,
 	...props
-}: { className?: string; children?: React.ReactNode } & HTMLMotionProps<"div">) {
+}: {
+	className?: string
+	children?: React.ReactNode
+	showBgImage?: boolean
+} & HTMLMotionProps<"div">) {
 	return (
 		// <GlareCard className="contents">
 		<motion.div
 			className={cn(
-				"w-full aspect-card flex pointer-events-none select-none rounded-(--radius)   relative overflow-hidden",
-				"bg-cover bg-center bg-no-repeat bg-[url(bg1.jpg)]",
-				"shadow-lg/10 shadow-[#5613A3] p-px",
+				"w-full aspect-card flex pointer-events-none select-none rounded-(--radius) relative overflow-hidden",
 				"[--color:#5613A3] [--radius:24px]",
-				"[view-transition-name:giftcard] ",
+				"[view-transition-name:giftcard]",
+				showBgImage &&
+					"bg-cover bg-center bg-no-repeat bg-[url(/bg1.jpg)] shadow-lg/10 shadow-[#5613A3]",
 				className
 			)}
 			{...props}
 		>
-			{/* <div className="absolute inset-[10px] rounded-[calc(var(--radius)-5px)] bg-gradient-to-t from-black to-black/50 mix-blend-soft-light "></div> */}
+			{/* <div className="pointer-events-none  absolute inset-[2px] rounded-[calc(var(--radius)-2px)] border-4 border-transparent [mask-clip:padding-box,border-box] [mask-composite:intersect] [mask-image:linear-gradient(transparent,transparent),linear-gradient(white,white)] mix-blend-soft-light">
+				<div className="absolute bg-black -inset-[10px] " />
+			</div> */}
 
-			<div className="absolute z-10 rounded-[inherit] inset-0 border-10 border-white mix-blend-overlay  blur-[1px]" />
+			<div className="pointer-events-none  absolute inset-[1px] rounded-[calc(var(--radius)-3px)] border-4 border-transparent [mask-clip:padding-box,border-box] [mask-composite:intersect] [mask-image:linear-gradient(transparent,transparent),linear-gradient(white,white)] mix-blend-overlay">
+				<div className="absolute bg-gradient-to-b from-white/58 to-transparent -inset-[2px] rounded-[inherit]" />
+			</div>
+
 			{children}
 		</motion.div>
 		// </GlareCard>

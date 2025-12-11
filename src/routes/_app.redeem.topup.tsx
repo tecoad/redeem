@@ -1,4 +1,5 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router"
+import { motion } from "motion/react"
 import { AnimateNumber } from "motion-plus/react"
 import {
 	IconCheckOutline18,
@@ -78,8 +79,10 @@ function RouteComponent() {
 				</Stepper.Step>
 			</Stepper>
 			<Heading>
-				<Heading.Title>Pending payment R$20,00</Heading.Title>
-				<Heading.Subtitle>Proceed in the topup to continue the redeeming process</Heading.Subtitle>
+				<Heading.Title as={motion.h1}>Pending payment R$20,00</Heading.Title>
+				<Heading.Subtitle as={motion.h2}>
+					Proceed in the topup to continue the redeeming process
+				</Heading.Subtitle>
 			</Heading>
 			<Giftcard
 				className={cn(

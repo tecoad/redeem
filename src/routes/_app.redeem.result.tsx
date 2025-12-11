@@ -36,7 +36,7 @@ function RouteComponent() {
 					</Heading.Subtitle>
 				</Heading>
 				<motion.div
-					initial={{ opacity: 0, translateY: 100, filter: "blur(6px)", rotate: 30 }}
+					initial={{ opacity: 0, translateY: 30, filter: "blur(6px)", rotate: 0 }}
 					animate={{ opacity: 1, translateY: 0, filter: "blur(0px)", scale: 1, rotate: 0 }}
 					transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.3 }}
 					className="w-full p-4 bg-muted rounded-xl shadow-inner"
@@ -50,12 +50,31 @@ function RouteComponent() {
 						]}
 					/>
 				</motion.div>
-				<div className=" break-all  px-4 mt-4">
+				<motion.div
+					initial={{
+						opacity: 0,
+						translateY: 10,
+						filter: "blur(3px)",
+						rotate: 0,
+					}}
+					animate={{
+						opacity: 1,
+						translateY: 0,
+						filter: "blur(0px)",
+						rotate: 0,
+					}}
+					transition={{
+						ease: "easeInOut",
+						duration: 0.3,
+						delay: 0.6,
+					}}
+					className=" break-all  px-4 mt-4"
+				>
 					<div className="text-muted-foreground text-sm">Authorization code</div>
 					<div className="font-mono text-lg">
 						<TextScramble duration={1.5}>F646B96B450AA8A4D79A84A3FD34EC20EE5520</TextScramble>
 					</div>
-				</div>
+				</motion.div>
 				<Layout.Footer>
 					<Button size="lg" onClick={() => setDrawerOpen(true)}>
 						<IconPaperPlane2FillDuo18 /> Send to my email

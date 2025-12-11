@@ -39,7 +39,7 @@ function RouteComponent() {
 				<Layout className="gap-0">
 					<div className="w-full h-full relative">
 						<motion.div className="absolute w-full top-1/2 -translate-y-1/2">
-							<Giftcard>
+							<Giftcard showBgImage>
 								<Giftcard.ContentWrapper>
 									<div className="flex w-full justify-between flex-1">
 										<Giftcard.MerchantLogo className="flex-1 " />
@@ -111,6 +111,7 @@ function RouteComponent() {
 									duration: 0.3,
 									ease: "easeInOut",
 								}}
+								size="sm"
 								variant="ghost"
 								className="w-auto"
 								onClick={() => setDrawerOpen(true)}

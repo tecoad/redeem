@@ -14,6 +14,8 @@ const buttonVariants = cva(
 		"after:absolute  after:rounded-[inherit]  after:transition-all after:duration-500 after:inset-[2px] ",
 		"after:-z-2",
 		"before:-z-1",
+		"not-disabled:hover:brightness-125",
+		"active:brightness-90 active:scale-95",
 
 		// "**:border **:border-[red]",
 	],
@@ -47,7 +49,7 @@ const buttonVariants = cva(
 					// After: inner emboss
 					"after:bg-[#8F8F8F] after:inset-[1px] after:from-black/30 after:to-transparent after:to-30% after:bg-linear-to-b",
 				],
-				ghost: [""],
+				ghost: ["hover:bg-muted text-muted-foreground"],
 			},
 			state: {
 				idle: "",

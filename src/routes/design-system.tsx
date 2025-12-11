@@ -1,5 +1,8 @@
 import { createFileRoute, type FileRouteTypes, useLocation } from "@tanstack/react-router"
 import { useState } from "react"
+import { Bento1 } from "@/components/Bento/Bento1"
+import { Bento2 } from "@/components/Bento/Bento2"
+import { Bento3 } from "@/components/Bento/Bento3"
 import { Button } from "@/components/Buttons/Button"
 import DotPulseLoading from "@/components/DotPulseLoading"
 import Stepper from "@/components/Stepper"
@@ -46,6 +49,12 @@ function RouteComponent() {
 					</Button>
 				</div>
 				<DotPulseLoading />
+
+				<div className="flex gap-4 flex-col w-[600px]">
+					<Bento1 />
+					<Bento2 />
+					<Bento3 />
+				</div>
 			</div>
 		</div>
 	)

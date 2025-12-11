@@ -169,7 +169,7 @@ function App() {
 								}}
 							>
 								<WaterRippleExclude>
-									<Giftcard className="pointer-events-auto">
+									<Giftcard className="pointer-events-auto" showBgImage>
 										<Giftcard.ContentWrapper>
 											<div className="flex w-full justify-between">
 												<Giftcard.MerchantLogo />

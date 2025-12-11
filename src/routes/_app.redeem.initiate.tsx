@@ -155,7 +155,7 @@ function RouteComponent() {
 						This is a secure process any transaction will take place in a safe enviroment.
 					</motion.div>
 					<Button
-						// disabled={!canUserProceed}
+						disabled={!canUserProceed}
 						size="lg"
 						variant={canUserProceed ? "primary" : "outline"}
 						onClick={handleOpenDrawer}
