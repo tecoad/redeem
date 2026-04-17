@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3000 --host",
+    "dev": "vite --port 3007 --host",
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.8",
-    "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.10.2",

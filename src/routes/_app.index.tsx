@@ -290,7 +290,7 @@ function App() {
 									>
 										activating
 									</TextRoll>
-									&nbsp;a Wine R$50 digital giftcard.
+									&nbsp;a $100 digital giftcard.
 								</div>
 							</Heading.Title>
 						</Heading>
