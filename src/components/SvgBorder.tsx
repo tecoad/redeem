@@ -195,7 +195,6 @@ export default function SvgBorder({
 						fill="none"
 						stroke="url(#trailGradient)"
 						strokeWidth={strokeWidth}
-						filter="url(#glow)"
 						style={{ opacity: trailOpacity }}
 						strokeDasharray={`${perimeter} 0`}
 						animate={{
