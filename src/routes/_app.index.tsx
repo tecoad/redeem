@@ -8,7 +8,7 @@ import {
 	useTransform,
 	useVelocity,
 } from "motion/react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Giftcard from "@/components/Giftcard"
 import Heading from "@/components/Heading"
 import Layout from "@/components/Layout"
@@ -32,19 +32,7 @@ function App() {
 	const [triggerKey, setTriggerKey] = useState(0)
 	const router = useRouter()
 
-	// Motion blur for card entry animation
 	const entryY = useMotionValue(800)
-	const entryVelocity = useVelocity(entryY)
-	const blurFilterRef = useRef<SVGFEGaussianBlurElement>(null)
-
-	// Update SVG filter blur based on velocity
-	useMotionValueEvent(entryVelocity, "change", velocity => {
-		if (blurFilterRef.current) {
-			// Map velocity to blur amount (absolute value since we care about speed, not direction)
-			const blurAmount = Math.min(Math.abs(velocity) / 100, 20)
-			blurFilterRef.current.setAttribute("stdDeviation", `0,${blurAmount}`)
-		}
-	})
 
 	// Trigger entry animation on mount
 	useEffect(() => {
@@ -105,14 +93,6 @@ function App() {
 
 	return (
 		<div className="w-full h-full" ref={layoutRef}>
-			{/* SVG Motion Blur Filter */}
-			<svg width="0" height="0" className="absolute">
-				<defs>
-					<filter id="card-motion-blur" x="-50%" y="-50%" width="200%" height="200%">
-						<feGaussianBlur ref={blurFilterRef} in="SourceGraphic" stdDeviation="0,0" />
-					</filter>
-				</defs>
-			</svg>
 			<WaterRippleEffect
 				width={layoutBounds.width}
 				height={layoutBounds.height}
@@ -157,7 +137,7 @@ function App() {
 								className="pointer-events-none"
 								style={{
 									y: entryY,
-									filter: "url(#card-motion-blur)",
+									willChange: "transform",
 								}}
 								initial={{ rotate: "10deg", x: "-30px" }}
 								animate={{ rotate: "0deg", x: "0px" }}
